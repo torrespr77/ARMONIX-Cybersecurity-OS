@@ -1,0 +1,20 @@
+# Credenciales - NUNCA subir
+*.env
+.env.*
+*token*
+*secret*
+*password*
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp
+*~
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Tokens y claves
+**/credentials/**
+**/keys/**
