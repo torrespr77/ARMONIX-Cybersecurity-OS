@@ -1,20 +1,77 @@
-# Credenciales - NUNCA subir
+# ═══════════════════════════════════════════
+# .gitignore — Proyecto Cybersecurity BRIDA + Ariana Agent
+# ═══════════════════════════════════════════
+
+# Credenciales y secrets — NUNCA subir
 *.env
 .env.*
+*.env
 *token*
 *secret*
 *password*
+*credentials*
+**/credentials/**
+**/keys/**
+auth.json
+*.lock
+*.db
+*.db-wal
+*.db-shm
+state.db*
+kanban.db*
 
-# Archivos temporales
+# Archivos binarios y temporales
 *.tmp
 *.bak
 *.swp
 *~
+*.zip
+*.tar.gz
+*.tar
+*.rar
 
 # Archivos de sistema
 .DS_Store
 Thumbs.db
+__pycache__/
+*.pyc
+*.pyo
+node_modules/
+venv/
+.venv/
 
-# Tokens y claves
-**/credentials/**
-**/keys/**
+# Logs y datos operacionales
+logs/
+*.log
+gateway.log*
+gateway_state.json
+gateway.lock
+processes.json
+ticker_heartbeat
+ticker_last_success
+*.heartbeat
+
+# Caches
+*_cache.json
+models_dev_cache.json
+ollama_cloud_models_cache.json
+provider_models_cache.json
+sticker_cache.json
+desktop-build-stamp.json
+*.snapshot.json
+
+# Backups locales
+*.bak.*
+backups/
+state_*.db
+hermes_backup_*.tar.gz
+pre-update-*.zip
+
+# Estado runtime
+shared/
+gateway/
+pets/
+state/
+cron/output/
+cron/.jobs.lock
+cron/.tick.lock

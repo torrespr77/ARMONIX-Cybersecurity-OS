@@ -1,0 +1,15 @@
+Proyectos BRIDA 2026: (1) PieSanoGDL — chatbot citas n8n→Google Calendar, $850MXN/mes. (2) ARMONIX — Shopify dropshipping salud, $1,130MXN/mes. (3) BRIDA IT Services — Pentest Black Box completado (Score 52/100), propuesta $245K MXN/año, manual admin v2.0. (4) Grupo Pepe — en pausa, contacto: Moises Martinez (moises.martinez@pollopepe.com.mx, 33-38-80-80-50). (5) C&A Mexico — Threat Model v2.0 entregado. (6) GitHub proyecto: https://github.com/torrespr77/Cybersecurity.git — subido y completo.
+§
+FORMATO DOCS: Autor: Ing. Roger Torres - Senior Cybersecurity Consultant. Contacto: LinkedIn / Email / Movil. SIN BRIDA IT Services, español mexicano, Word + PDF. Frameworks: MITRE ATT&CK, STRIDE+DREAD, NIST CSF, ISO 27001.
+§
+TELEGRAM: Bot @Ariana_BRIDA_bot (ID: 8706813846). Roger ID: 585583379. Token viejo 8426875363 REVOCADO por compartirse en chat público. Token NUNCA en memoria persistente ni chat — usar token fresco de Roger cuando se necesite. Gateway long_polling secuestra token: getMe OK pero sendMessage/sendDocument 404. Solución: Python urllib para envío archivos, NO curl. NUNCA hermes gateway restart desde el agente (auto-SIGTERM).
+§
+PENTEST TOOLS: 16 instaladas: nmap, nikto, nuclei, whatweb, testssl.sh, sqlmap, hydra, gobuster, dirb, ffuf, wpscan, httpx, waybackurls, subfinder, amass, assetfinder, sublist3r. NO disponibles: john (GCC fail), hashcat (no GPU). Tools en /tmp se pierden al reboot — usar ~/tools/. Arsenal BRIDA: 45/46 herramientas, score global 88/100. Metodología: PTES + OWASP WSTG, Black/Gray/White box. Reportes: ejecutivo + técnico. WRAPPER BUG: NUNCA cat heredoc en dir del tool (overwrites original → SHLVL=1000). Recovery: git checkout -- .
+§
+INFRA: Tavily API key en .env, web.search_backend=tavily en config.yaml (HTTP 200 verificado). CRON JOBS: Daily Health Check (9AM), Daily Backup (2AM), Weekly Health Check (Vie 10AM), Weekly Skills Backup (Dom 3AM). Recordatorio Grupo Pepe: Mie 1 Jul 2026 9AM.
+§
+Roger's server environment: Ubuntu 24.04, Python 3.14 (/usr/bin/python3.14), Go 1.26, uv 0.11.25 (~/.local/bin). No sudo access. /tmp gets cleaned on reboot — use ~/tools/ for persistent installs. Java 21 (Oracle JDK) at ~/tools/java/jdk-21.0.11. Burp Suite Community 2024.10.3 at ~/tools/burp_community.jar. GPU Intel HD 510 (no OpenCL) — hashcat not viable.
+§
+ANÁLISIS DE COBERTURA DE HERRAMIENTAS DE PENTESTING - actualizado Jun 29 2026. Arsenal BRIDA: 45/46 herramientas operativas. Coberturas: Recon OSINT 100%, Web Application 100%, Network Scanning 100%, Exploitation 95%, Post-Explotación 90%, Active Directory 95%, Cloud Security 95%, Social Engineering 90%, Password Attacks 90%, SCADA/ICS 70%, Reporting 100%, DevSecOps 40%, Wireless 0%, Mobile 0%. Puntuacion global del arsenal: 88/100. Roger solicita este analisis con frecuencia para reportes ejecutivos a clientes.
+§
+PUERTO SEGURO: 9119 = Hermes Dashboard. Proceso ejecutado por Roger manualmente, totalmente seguro. NO alertar ni marcar como sospechoso en health checks.
