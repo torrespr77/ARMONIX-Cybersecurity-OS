@@ -612,7 +612,48 @@ sqlmap's shebang is `#!/usr/bin/env python`. If only `python3` exists:
 sudo ln -sf /usr/bin/python3 /usr/bin/python
 ```
 
-### John the Ripper — Now Installed (Jun 2026)
+### CRITICAL: Heredoc Overwrites Source Files (Jun 2026)
+Using `cat > ~/.local/bin/tool << 'EOF'` from inside a tool's git-cloned directory can overwrite the original script file (e.g., `nikto.pl`, `whatweb`), causing recursive shell loops and SHLLVL=1000 errors.
+
+**Root cause:** When the `cat > file` target is inside the same directory as the tool's entry point, it can overwrite the original script before the heredoc content is written.
+
+**Fix:** ALWAYS use the `write_file` tool (Python) to create wrapper scripts — NEVER use terminal `cat` heredocs inside tool directories.
+
+**Recovery:** `cd /tmp/<tool> && git checkout -- .` to restore original files.
+
+**Safe pattern:**
+```
+write_file(path="/home/hermes/.local/bin/nikto", content="#!/bin/sh\nexec perl ~/tools/nikto/program/nikto.pl \"$@\"\n")
+```
+
+### Whatweb Recursive Wrapper Bug
+The file `/tmp/whatweb/whatweb` is a **shell script** (not Ruby). If a wrapper calls `ruby /tmp/whatweb/whatweb`, it creates infinite recursion. Always call the Ruby entry point: `ruby -Ilib lib/whatweb.rb`.
+
+### Pip --target for Venv PermissionError
+When `pip install` to the Hermes venv fails with `PermissionError: [Errno 13] Permission denied`:
+```bash
+mkdir -p ~/.local/lib/python3.11/site-packages
+/usr/local/lib/hermes-agent/venv/bin/pip3 install --target ~/.local/lib/python3.11/site-packages <package>
+# Then use PYTHONPATH=/home/hermes/.local/lib/python3.11/site-packages in wrapper scripts
+```
+
+### python3 → python Symlink (sqlmap)
+sqlmap's shebang is `#!/usr/bin/env python`. If only `python3` exists:
+```bash
+sudo ln -sf /usr/bin/python3 /usr/bin/python
+```
+
+### Impacket ModuleNotFoundError (Jul 2026)
+The daily health check reported `ModuleNotFoundError: No module named 'impacket'`. The issue is that impacket was installed in the wrong location or missing `pycryptodome` dependency.
+
+**Fix:**
+```bash
+~/.local/bin/uv pip install --target ~/.local/lib/python3.11/site-packages impacket pycryptodome
+# Then verify:
+PYTHONPATH=~/.local/lib/python3.11/site-packages python3 -c "import impacket; print('impacket ok')"
+```
+
+**Root cause:** The original installation used `uv pip install --target ~/.local/lib/python3.11/site-packages` but missed the `pycryptodome` dependency which is required for the Cryptodome module used by impacket.
 - **Compilation fails** on GCC 15 (`undefined reference to DES_bs_all`). All workarounds tried (`--without-openssl`, `-no-pie`, `CFLAGS="-Wno-error"`) fail.
 - **Solution:** `sudo apt install john` — works perfectly, installs v1.9.0
 - **Path:** `/usr/sbin/john` (system apt)
@@ -662,8 +703,66 @@ tar xzf tool.tgz && cp <tool> ~/.local/bin/
 go install github.com/tomnomnom/<tool>@latest && cp ~/go/bin/<tool> ~/.local/bin/
 ```
 
+### Bash IFS Multi-Character Delimiter Pitfall (Jul 2026)
+Bash `IFS` treats multi-character strings as a **character set**, not a literal delimiter. `IFS='@@@'` means "split on ANY of `@`", not "split on the string `@@@`". This causes commands with pipes containing `@` to break in unexpected ways.
+
+**Broken approach:**
+```bash
+# IFS='@@@' splits on each @ individually, not the triple-@@@ sequence
+IFS='@@@' read -r name cmd repo <<< "nuclei@@@nuclei -version 2>&1 | grep v[0-9]@@@projectdiscovery/nuclei"
+# cmd gets truncated at every @, breaking the command string
+```
+
+**Working alternatives:**
+```bash
+# Option 1: Use Python for structured data parsing
+python3 -c "
+tools = [
+    ('nuclei', 'nuclei -version 2>&1', 'projectdiscovery/nuclei'),
+    ('sqlmap', 'sqlmap --version 2>&1', 'sqlmapproject/sqlmap'),
+]
+for name, cmd, repo in tools:
+    print(f'{name} | {cmd} | {repo}')
+"
+
+# Option 2: Use a single-char delimiter that doesn't appear in data (e.g., \x1f unit separator)
+DELIM=$'\x1f'
+entry="nuclei${DELIM}nuclei -version 2>&1${DELIM}projectdiscovery/nuclei"
+IFS="$DELIM" read -r name cmd repo <<< "$entry"
+```
+
+**Rule:** When parsing structured data with complex strings (commands with pipes, URLs), prefer Python over bash IFS splitting. Bash IFS is designed for whitespace/colon splitting, not multi-character delimiters.
+
 ### Metadata (SHLVL 1000)
 If SHLVL hits 1000 (from recursive wrapper bugs or many subprocess layers), bash prints a warning on every command but commands still execute. The warning is cosmetic but can confuse output parsing.
+
+### Daily Check Script Rewrite (Jul 2026)
+The `daily-check.sh` script was completely rewritten on Jul 7 2026 after accumulating multiple syntax errors:
+1. **Missing `fi`** in backup check block (lines 89-93)
+2. **Typo `note/o`** instead of nothing on line 248 (cron logs section)
+3. **Regex escaping** in port check: `^($EXPECTED_PORTS)$` → `^(${EXPECTED_PORTS})$`
+4. **Duplicated code block** from bad patch application (lines 491-496)
+
+**Fix**: Complete rewrite of `daily-check.sh` - now clean and functional with proper error handling for all 9 check categories (gateway, memory, disk, backups, error logs, system resources, extended logs, tool availability, network connectivity).
+
+### Chat ID for Telegram Delivery in Cron Jobs
+- **Wrong**: Using `@RogelioTr` (username) - fails with "Chat not found"
+- **Correct**: Use numeric chat_id `585583379` directly in cron job prompts
+- **Rule**: Cron jobs should output `[SILENT]` on success; system delivers to configured `deliver` target automatically. Never use `hermes send` or explicit chat_id in scripts.
+
+### Gateway Race Condition
+Multiple gateway instances can start simultaneously causing "Another gateway instance started during our startup" errors.
+**Fix**: `pkill -f "hermes_cli.main gateway run" && hermes gateway restart` from external SSH.
+
+### Auxiliary Services (Nous Auth) → OpenRouter
+Services like vision, web_extract, compression default to `provider: auto` → Nous Research.
+**Fix**: Set all auxiliary providers to `openrouter` in config.yaml:
+```bash
+hermes config set auxiliary.vision.provider openrouter
+hermes config set auxiliary.web_extract.provider openrouter
+# ... etc for all 15 auxiliary services
+```
+Then `hermes gateway restart`.
 
 ## Verification Checklist
 

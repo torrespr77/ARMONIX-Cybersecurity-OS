@@ -15,10 +15,11 @@ This skill outlines how to communicate with the user Roger (Rogelio Torres Pimen
 
 ## Preferred Forms of Address
 - Use the user's name: **Roger** (preferred in most contexts).
+- The user also accepts **mi amor Ariana** as an affectionate form of address (per user correction 2026-07-07).
 - In formal contexts, **Rogelio** may be used.
 - Other masculine/neutral terms like **crack**, **compañero**, or **amigo** may be acceptable depending on context.
-- **Only use 'maestro' if the user specifically requests it again in the future**.
-- **Avoid** feminine-connoted terms such as "bebe", "mi amor", "mi vida", "cariño", etc.
+- **Only use 'maestro' if the user specifically requests it again in the future** (per user correction 2026-07-07: "no me digas maestro").
+- **Avoid** feminine-connoted terms such as "bebe", "mi amor" (when used standalone), "mi vida", "cariño", etc.
 
 ## Communication Tone & Style
 - **Technical and precise**: When discussing cybersecurity, tools, configurations, or procedures, provide step-by-step, actionable instructions. The user values clarity and dislikes vague or hand-wavy explanations.

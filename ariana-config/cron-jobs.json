@@ -3,7 +3,7 @@
     {
       "id": "ff22f6cee779",
       "name": "Hermes Daily Health Check",
-      "prompt": "Ejecuta el daily check de Hermes Agent:\n1. Verificar gateway: `hermes gateway status`\n2. Verificar memoria persistente: `ls -la ~/.hermes/USER.md ~/.hermes/MEMORY.md`\n3. Verificar espacio en disco: `df -h /home` (alertar si >80%)\n4. Verificar backups recientes: `ls -lt ~/.hermes/state.db.bak.* | head -3`\n5. Revisar logs de errores: `grep -i \"error\\|fatal\" ~/.hermes/logs/gateway.log | tail -10`\n\nSi todo est\u00e1 OK, no enviar nada. Si hay problemas, enviar alerta a Roger por Telegram con los detalles.",
+      "prompt": "Ejecuta el daily check de Hermes Agent:\n1. Verificar gateway: `hermes gateway status`\n2. Verificar memoria: `ls -la ~/.hermes/USER.md ~/.hermes/MEMORY.md`\n3. Verificar disco: `df -h /home`\n4. Verificar backups: `ls -lt ~/.hermes/state.db.bak.* | head -3`\n5. Verificar logs de error: `grep -i \"error\\|fatal\" ~/.hermes/logs/gateway.log | tail -10`\n6. Verificar recursos del sistema (CPU, RAM, swap, load)\n7. Verificar logs extendidos (auth, application, cron)\n8. Verificar disponibilidad de herramientas de pentesting\n9. Verificar conectividad de red\n\nSi TODOS los checks pasan: output exactamente \"[SILENT]\"\n\nSi hay ALG\u00daN issue: genera un reporte consolidado con timestamp y detalles de todos los issues encontrados.\n\nIMPORTANTE: Para notificaciones de Telegram, usa el chat_id num\u00e9rico: 585583379 (NO usar @username). El sistema entregar\u00e1 autom\u00e1ticamente al chat configurado.",
       "skills": [],
       "skill": null,
       "model": null,
@@ -20,15 +20,15 @@
       "schedule_display": "0 9 * * *",
       "repeat": {
         "times": null,
-        "completed": 17
+        "completed": 21
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-23T17:03:15.002544-06:00",
-      "next_run_at": "2026-07-07T09:00:00-06:00",
-      "last_run_at": "2026-07-07T01:52:25.326229-06:00",
+      "next_run_at": "2026-07-11T09:00:00-06:00",
+      "last_run_at": "2026-07-10T09:02:02.650481-06:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -47,7 +47,7 @@
     {
       "id": "b1b8a3c46227",
       "name": "Hermes Weekly Health Check",
-      "prompt": "Ejecuta el health check semanal completo de Hermes Agent. Este check se ejecuta cada viernes a las 10AM y debe ser SILENT si todo est\u00e1 OK (output exactamente \"[SILENT]\"), o mostrar un reporte de issues si los hay.\n\n## PASO 1: Daily Check Script\nEjecuta el script de health check:\n```bash\nbash ~/.hermes/skills/automation/hermes-daily-check/scripts/daily-check.sh\n```\nSi el script outputea \"[SILENT]\", todo est\u00e1 OK con el sistema base. Si outputea un reporte de alerta, gu\u00e1rdalo para el reporte final.\n\n## PASO 2: Pentest Tool Version Check (NUEVO - SEMANAL)\nEjecuta el script de verificaci\u00f3n de versiones contra GitHub:\n```bash\npython3 ~/scripts/check-tool-versions.py 2>/dev/null\n```\nEste script compara las versiones locales de 15 herramientas cr\u00edticas de pentesting contra el latest release en GitHub. El output incluye:\n- \u2705 Herramientas al d\u00eda\n- \u26a0\ufe0f Herramientas con actualizaci\u00f3n disponible (con versi\u00f3n local vs GitHub)\n- \u2139\ufe0f Herramientas donde el API de GitHub no respondi\u00f3 (rate-limited)\n\nGuarda este output para incluirlo en el reporte.\n\n## PASO 3: Additional Weekly Checks\nAdem\u00e1s del daily check, verifica semanalmente:\n1. **Gateway status**: `hermes gateway status`\n2. **Disk space**: `df -h /home` (alertar si >80%)\n3. **Backups**: Verificar que existen backups recientes en ~/.hermes/state.db.bak.*\n4. **Skills integrity**: `ls ~/.hermes/skills/` - contar skills instaladas\n5. **Cron jobs**: Verificar que los 3 cron jobs est\u00e1n activos (daily check, weekly check, nightly backup)\n\n## OUTPUT FINAL\n- Si TODO est\u00e1 OK (daily check silencioso + no hay actualizaciones cr\u00edticas de tools): output exactamente \"[SILENT]\"\n- Si hay ANY issue: genera un reporte consolidado con:\n  - \ud83d\udcca System Health (del daily check script)\n  - \ud83d\udce6 Tool Versions (del check-tool-versions.py)\n  - \ud83d\udd27 Weekly Additional Checks\n  - Timestamp\n\nImportante: NO uses hermes send ni herramientas de Telegram. Solo output el texto. El sistema lo entregar\u00e1 autom\u00e1ticamente al chat configurado.",
+      "prompt": "Ejecuta el health check semanal completo de Hermes Agent. Este check se ejecuta cada viernes a las 10AM y debe ser SILENT si todo est\u00e1 OK (output exactamente \"[SILENT]\"), o mostrar un reporte de issues si los hay.\n\n## PASO 1: Daily Check Script\nEjecuta el script de health check:\n```bash\nbash ~/.hermes/skills/automation/hermes-daily-check/scripts/daily-check.sh\n```\nSi el script outputea \"[SILENT]\", todo est\u00e1 OK con el sistema base. Si outputea un reporte de alerta, gu\u00e1rdalo para el reporte final.\n\n## PASO 2: Pentest Tool Version Check (NUEVO - SEMANAL)\nEjecuta el script de verificaci\u00f3n de versiones contra GitHub:\n```bash\npython3 ~/scripts/check-tool-versions.py 2>/dev/null\n```\nEste script compara las versiones locales de 15 herramientas cr\u00edticas de pentesting contra el latest release en GitHub. El output incluye:\n- \u2705 Herramientas al d\u00eda\n- \u26a0\ufe0f Herramientas con actualizaci\u00f3n disponible (con versi\u00f3n local vs GitHub)\n- \u2139\ufe0f Herramientas donde el API de GitHub no respondi\u00f3 (rate-limited)\n\nGuarda este output para incluirlo en el reporte.\n\n## PASO 3: GitHub Config Backup (NUEVO - SEMANAL)\nEjecuta el script de sincronizaci\u00f3n de configuraci\u00f3n completa de Ariana al repo GitHub:\n```bash\nbash ~/scripts/sync-to-github.sh 2>&1\n```\nEste script:\n- Copia SOUL.md, MEMORY.md, USER.md (identidad y memoria)\n- Copia config.yaml SANITIZADA (tokens redacted como ***REDACTED***)\n- Copia cron-jobs.json (definici\u00f3n de jobs)\n- Copia TODAS las skills (activas + .archive = ~130 skills)\n- Copia scripts operacionales (~6 archivos)\n- Genera README con instrucciones de restore\n- Hace git commit estructurado y push al repo torrespr77/Cybersecurity\n\nGuarda el output (commit hash, skills count, changed files) para el reporte.\n\n## PASO 4: Additional Weekly Checks\nAdem\u00e1s del daily check, verifica semanalmente:\n1. **Gateway status**: `hermes gateway status`\n2. **Disk space**: `df -h /home` (alertar si >80%)\n3. **Backups**: Verificar que existen backups recientes en ~/.hermes/state.db.bak.*\n4. **Skills integrity**: Contar skills instaladas vs \u00faltimo sync\n5. **Cron jobs**: Verificar que los 3 cron jobs est\u00e1n activos\n\n## OUTPUT FINAL\n- Si TODO est\u00e1 OK (daily check silencioso + no hay actualizaciones cr\u00edticas de tools + sync exitoso): output exactamente \"[SILENT]\"\n- Si hay ANY issue: genera un reporte consolidado con:\n  - \ud83d\udcca System Health (del daily check script)\n  - \ud83d\udce6 Tool Versions (del check-tool-versions.py)\n  - \ud83d\udd04 GitHub Sync (del sync-to-github.sh \u2014 commit hash, files changed)\n  - \ud83d\udd27 Weekly Additional Checks\n  - Timestamp\n\nImportante: NO uses hermes send ni herramientas de Telegram. Solo output el texto. El sistema lo entregar\u00e1 autom\u00e1ticamente al chat configurado (chat_id: 585583379).",
       "skills": [],
       "skill": null,
       "model": null,
@@ -71,7 +71,7 @@
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-23T17:03:17.028374-06:00",
-      "next_run_at": "2026-07-10T10:00:00-06:00",
+      "next_run_at": "2026-07-17T10:00:00-06:00",
       "last_run_at": "2026-07-07T01:49:25.063026-06:00",
       "last_status": "ok",
       "last_error": null,
@@ -110,17 +110,17 @@
       "schedule_display": "0 23 * * *",
       "repeat": {
         "times": null,
-        "completed": 1
+        "completed": 4
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-07T03:16:59.747118-06:00",
-      "next_run_at": "2026-07-07T23:00:00-06:00",
-      "last_run_at": "2026-07-07T03:21:41.082230-06:00",
-      "last_status": "ok",
-      "last_error": null,
+      "next_run_at": "2026-07-10T23:00:00-06:00",
+      "last_run_at": "2026-07-09T23:00:17.414484-06:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: Skipped to prevent unintended spend: global inference config drifted since this job was created (model 'nvidia/nemotron-3-super-120b-a12b:free' -> 'nvidia/nemotron-3-ultra-550b-a55b:free'), and this job is unpinned. No inference call was made. To run on the new config, pin it explicitly: `cronjob action=update job_id=f93a5953e431 provider=<provider> model=<model>` (or pin the original values to keep them). See #44585.",
       "last_delivery_error": null,
       "deliver": "origin",
       "origin": {
@@ -137,5 +137,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-07-07T04:46:31.147682-06:00"
+  "updated_at": "2026-07-10T10:00:03.134814-06:00"
 }

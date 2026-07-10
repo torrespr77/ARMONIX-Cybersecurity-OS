@@ -58,6 +58,12 @@ doc.save('output.docx')
 "
 ```
 
+**Pitfalls (verified Jul 2026):**
+- **Paragraph shading**: To set background color on a paragraph (e.g., code blocks), use `p._p.get_or_add_pPr()` — NOT `get_or_add_tcPr()` (that's for table cells). Using the wrong one throws `AttributeError: 'CT_P' object has no attribute 'get_or_add_tcPr'`.
+- **Cell shading**: For table cells, use `cell._tc.get_or_add_tcPr()` with `OxmlElement('w:shd')`.
+- **Large scripts**: python-docx scripts over ~30KB written as standalone .py files can get truncated by the write_file tool. If the script is large, consider using `execute_code` with the venv Python directly, or split into smaller functions.
+- **Venv path**: Always use `~/venvs/venv2/bin/python` — the system Python3 does NOT have python-docx installed.
+
 ### PowerPoint presentations
 Create, read, edit `.pptx` files via python-pptx (installed in ~/venvs/venv2).
 ```bash

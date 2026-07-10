@@ -13,3 +13,7 @@ Roger's server environment: Ubuntu 24.04, Python 3.14 (/usr/bin/python3.14), Go 
 ANÁLISIS DE COBERTURA DE HERRAMIENTAS DE PENTESTING - actualizado Jun 29 2026. Arsenal BRIDA: 45/46 herramientas operativas. Coberturas: Recon OSINT 100%, Web Application 100%, Network Scanning 100%, Exploitation 95%, Post-Explotación 90%, Active Directory 95%, Cloud Security 95%, Social Engineering 90%, Password Attacks 90%, SCADA/ICS 70%, Reporting 100%, DevSecOps 40%, Wireless 0%, Mobile 0%. Puntuacion global del arsenal: 88/100. Roger solicita este analisis con frecuencia para reportes ejecutivos a clientes.
 §
 PUERTO SEGURO: 9119 = Hermes Dashboard. Proceso ejecutado por Roger manualmente, totalmente seguro. NO alertar ni marcar como sospechoso en health checks.
+§
+GITHUB BACKUP SEMANAL: Script ~/scripts/sync-to-github.sh respalda config completa de Ariana al repo privado torrespr77/Cybersecurity. Incluye: SOUL.md, MEMORY.md, USER.md, config.yaml sanitizada (tokens REDACTED), cron-jobs.json, skills/ (130 total), scripts/. Repo local: ~/brida-security-project/. Git: Roger Torres. Deploy key configurada. .env y auth.json NUNCA se suben. Integrado al Weekly Health Check viernes 10AM. Primer sync exitoso: 570 archivos, commit 23d97b4.
+§
+FIX ALERTA TELEGRAM: El Daily Health Check cron job (ff22f6cee779) y Weekly (b1b8a3c46227) usaban @RogelioTr como chat_id incorrectamente. Corregido para usar chat_id numérico 585583379. Username real de Roger es @torrespr77 pero los cron jobs deben usar el ID numérico.

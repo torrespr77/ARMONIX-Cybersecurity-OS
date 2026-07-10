@@ -1,0 +1,74 @@
+# Check Tool Availability and Integrity
+echo "🔍 Checking tool availability and integrity..." >&2
+
+declare -A TOOL_CHECKS
+TOOL_CHECKS["nmap"]="nmap --version"
+TOOL_CHECKS["nuclei"]="nuclei -version"
+TOOL_CHECKS_CHECKS["sqlmap"]="sqlmap --version"
+TOOL_CHECKS["metasploit"]="msfconsole --version"
+TOOL_CHECKS["bloodhound"]="bloodhound.py --help 2>&1 | head -1"
+TOOL_CHECKS["impacket"]="python3 -c \"import impacket; print('impacket ok')\" 2>&1"
+
+for tool_name in "${!TOOL_CHECKS[@]}"; do
+    cmd="${TOOL_CHECKS[$tool_name]}"
+    echo "     Checking $tool_name..." >&2
+    
+    # Determine if tool is available (in PATH or special location)
+    TOOL_AVAILABLE=0
+    if command -v "$tool_name" >/dev/null 2>&1; then
+        TOOL_AVAILABLE=1
+    elif [ "$tool_name" = "bloodhound" ] && [ -x "$HOME/tools/ad/bloodhound/bloodhound-py/bloodhound.py" ]; then
+        TOOL_AVAILABLE=1
+    elif [ "$tool_name" = "metasploit" ] && [ -x "$HOME/tools/metasploit-framework/msfconsole" ]; then
+        TOOL_AVAILABLE=1
+    elif [ "$tool_name" = "impacket" ]; then
+        # impacket is checked via python import
+        TOOL_AVAILABLE=1
+    fi
+    
+    if [ $TOOL_AVAILABLE -eq 1 ]; then
+        # Special handling for tools not in PATH
+        if [ "$tool_name" = "metasploit" ]; then
+            if [ -x "$HOME/tools/metasploit-framework/msfconsole" ]; then
+                TOOL_OUTPUT="$("$HOME/tools/metasploit-framework/msfconsole" --version 2>&1 | head -1)"
+                TOOL_EXIT=$?
+            else
+                TOOL_OUTPUT="msfconsole not found or not executable in $HOME/tools/metasploit-framework"
+                TOOL_EXIT=1
+            fi
+        elif [ "$tool_name" = "bloodhound" ]; then
+            if [ -x "$HOME/tools/ad/bloodhound/bloodhound-py/bloodhound.py" ]; then
+                TOOL_OUTPUT="$("$HOME/tools/ad/bloodhound/bloodhound-py/bloodhound.py" --help 2>&1 | head -1)"
+                TOOL_EXIT=$?
+            else
+                TOOL_OUTPUT="BloodHound.py not found or not executable"
+                TOOL_EXIT=1
+            fi
+        elif [ "$tool_name" = "impacket" ]; then
+            # Check via python import using the correct PYTHONPATH
+            TEMP_OUTPUT=$(PYTHONPATH="$HOME/.local/lib/python3.11/site-packages:$PYTHONPATH" python3 -c "import impacket; print('impacket ok')" 2>&1)
+            TOOL_OUTPUT=$TEMP_OUTPUT
+            if echo "$TEMP_OUTPUT" | grep -q "ModuleNotFoundError"; then
+                TOOL_EXIT=1
+            else
+                TOOL_EXIT=0
+            fi
+        else
+            TOOL_OUTPUT=$($cmd 2>&1)
+            TOOL_EXIT=$?
+        fi
+        
+        if [ $TOOL_EXIT -eq 0 ]; then
+            echo "       ✅ $tool_name: $TOOL_OUTPUT" >> "$ISSUES_FILE"
+        else
+            echo "⚠️  $tool_name CHECK FAILED OR NOT AVAILABLE" >> "$ISSUES_FILE"
+            echo "      Output: $TOOL_OUTPUT" >> "$ISSUES_FILE"
+            HAS_ISSUES=1
+        fi
+    else
+        echo "⚠️  $tool_name NOT FOUND IN PATH" >> "$ISSUES_FILE"
+        HAS_ISSUES=1
+    fi
+done
+
+# Check Virtual Environments

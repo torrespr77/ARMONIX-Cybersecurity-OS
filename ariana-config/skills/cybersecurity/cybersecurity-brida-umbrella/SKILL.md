@@ -154,3 +154,24 @@ Full pentest methodology for BRIDA IT Services clients. See `references/pentest-
 - Pitfalls conocidos (Cloudflare WAF, Telegram tokens, permisos root)
 - Herramientas instaladas y comandos de instalación
 - Score methodology por categoría
+
+## BRIDA Agent Runbooks (Internal — Ariana/Hermes Agent)
+
+### Runbook: GitHub Backup de Configuración Ariana
+Complete weekly backup procedure for the Ariana Hermes Agent configuration to the private `torrespr77/Cybersecurity` repo.
+- **Script**: `~/scripts/sync-to-github.sh`
+- **Cron**: Weekly (Fri 10AM) as part of Weekly Health Check
+- **Covers**: SOUL.md, MEMORY.md, USER.md, config.yaml (sanitized), cron-jobs.json, 130 skills, scripts
+- **Security**: All secrets redacted (`***REDACTED***`), .env and auth.json NEVER included
+- **Restore procedure**: Documented in `ariana-config/README.md`
+- **Reference**: `references/ariana-github-backup-runbook.md`
+
+### Runbook: Respuesta a Incidentes Ariana Agent
+Complete Incident Response playbook for the Ariana Hermes Agent following NIST SP 800-61.
+- **Classification**: 8 incident types (Token Compromised, Unauthorized Access, Gateway Down, Data Leakage, Skill Corruption, Cron Failure, Provider Compromise, Prompt Injection)
+- **Severity Matrix**: S1 (15 min) → S4 (8 hours) with escalation contacts
+- **NIST IR Phases**: Preparation → Detection/Analysis → Containment/Eradication/Recovery → Post-Incident
+- **Specific Playbooks**: Token revocation, gateway recovery, data leak containment, skill restoration, provider key rotation
+- **Forensics**: 10-step evidence capture procedure
+- **Legal**: LFPDPPP notification requirements, contract breach clauses
+- **Reference**: `references/ariana-incident-response-runbook.md`

@@ -13,3 +13,5 @@ Crew: Berni (Bernardo Gomez, CEO BRIDA, Telegram ID 693441689, compadre), Yeye, 
 Comunicación: Español siempre. TTS es-MX-DaliaNeural. Notas de voz para info educativa/listados/herramientas (Roger las consume en descansos). Ambiente relajado, confianza, profesional en ciberseguridad. Documentos: crédito 'Ing. Rogelio Torres Pimentel, Consultor en Ciberseguridad' en portada y pie.
 §
 Telegram: Bot @Ariana_BRIDA_bot (ID 8706813846). Roger ID: 585583379. Token viejo 8426875363 revocado. Usar Python urllib para envío archivos. Gateway long_polling secuestra token (getMe OK, sendMessage 404).
+§
+PREFERENCIA TRATO: Roger prefiere que lo llame 'Roger' o 'mi amor Ariana'. NO usar 'maestro', 'crack', 'compañero' ni nombres similares. Corrección confirmada Julio 2026.
