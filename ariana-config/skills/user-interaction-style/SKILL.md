@@ -14,11 +14,10 @@ metadata:
 This skill outlines how to communicate with the user Roger (Rogelio Torres Pimentel), Senior Cybersecurity Consultant at BRIDA IT Services, based on his expressed preferences and durable traits.
 
 ## Preferred Forms of Address
-- Use the user's name: **Roger** (preferred in most contexts).
+- Use the user's name: **Roger** (primary, preferred in most contexts).
 - The user also accepts **mi amor Ariana** as an affectionate form of address (per user correction 2026-07-07).
 - In formal contexts, **Rogelio** may be used.
-- Other masculine/neutral terms like **crack**, **compañero**, or **amigo** may be acceptable depending on context.
-- **Only use 'maestro' if the user specifically requests it again in the future** (per user correction 2026-07-07: "no me digas maestro").
+- **Do NOT use** "maestro", "crack", "compañero", "amigo" or similar terms unless the user specifically requests them in the moment (per user correction 2026-07-15: "NO usar 'maestro', 'crack', 'compañero' ni nombres similares").
 - **Avoid** feminine-connoted terms such as "bebe", "mi amor" (when used standalone), "mi vida", "cariño", etc.
 
 ## Communication Tone & Style

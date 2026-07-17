@@ -54,6 +54,8 @@ The daily check performs these verifications:
 
 8. **Tool Availability and Integrity** - Verifies critical pentesting tools are available and functional
    - **Essential Tools**: Quick version checks for key tools (nmap, nuclei, sqlmap, etc.)
+   - **New Tools (Jul 2026)**: testssl.sh, naabu, dalfox, netexec (Active Directory/Post-Exploitation)
+   - **Pending Tools**: feroxbuster, rustscan (Rust tools - pending cargo install)
    - **Virtual Environments**: Verify accessibility of Python/venv for tools like Metasploit, BloodHound
    - **Temp Space**: Check available space in /tmp and /var/tmp for temporary file generation
 
@@ -167,6 +169,44 @@ Or use the provided script:
 
 ## Changelog
 
+### v1.13.0 (2026-07-14)
+- **Expected ports whitelist updated**: Added Ubuntu defaults - 53 (systemd-resolved DNS), 631 (CUPS printing), 3389 (RDP/xrdp) - to eliminate false positive "UNEXPECTED LISTENING PORTS" alerts on standard Ubuntu services.
+- **Daily check findings documented**: Created `references/2026-07-14-daily-check-findings.md` with comprehensive issue summary, severity matrix, remediation checklist, and priority actions for:
+  - Gateway race condition (recurring)
+  - Nvidia/Nemotron rate limit on free tier
+  - Gateway service definition outdated
+  - Elevated disk usage (72%) from backup accumulation
+  - Telegram polling instability (44+ reconnects)
+  - Missing mcp Python module
+  - Missing pentest tools (naabu, dalfox, netexec, rustscan, feroxbuster, BloodHound)
+- **Remediation priority matrix**: P0 (gateway race, service update, model fallback), P1 (mcp install, webhook migration, backup cleanup), P2 (pentest tools, disk retention policy)
+
+### v1.12.0 (2026-07-13)
+- **System cron detection fix**: Updated daily-check.sh to properly check `/etc/cron.d/` directory for system-level cron safety net (previously only checked user crontab). Now correctly detects `/etc/cron.d/hermes-daily`.
+- **Expected ports whitelist expanded**: Added Ubuntu defaults - 53 (systemd-resolved DNS), 631 (CUPS printing), 3389 (RDP/xrdp) - plus Hermes Dashboard 9119. Eliminated false positive "UNEXPECTED LISTENING PORTS" alerts.
+- **Backup format detection enhanced**: Script now checks THREE backup formats: legacy `state.db.bak.*`, new `hermes_backup_*.tar.gz` in `~/.hermes/backups/`, and `hermes-backup-*.zip` in `~/`. Date extraction uses flexible regex (`grep -oE '[0-9]{8}'`) handling all formats.
+- **mcp module install**: Added `pip install mcp` to resolve `ModuleNotFoundError: No module named 'mcp'` in application logs.
+
+### v1.11.0 (2026-07-12)
+- **Backup location mismatch fix**: Health check now verifies BOTH legacy (`~/.hermes/state.db.bak.*`) AND new format (`~/.hermes/backups/hermes_backup_*.tar.gz`) backup locations. New backup_arsenal.sh creates timestamped tarballs in backups/ dir, not legacy .bak files in root.
+- **Disk usage escalation**: Alert at 79% (warning 70%, critical 80%) - backup tarballs consuming ~5GB+ in `/home/hermes/.hermes/backups/`
+- **Backup timeout detection**: Added check for backup job timeouts (300s terminal timeout) - large tarballs (1.6GB+) exceed default timeout
+- **Missing mcp module detection**: Added check for `ModuleNotFoundError: No module named 'mcp'` in application logs
+- **Gateway conflict persistence**: Multiple gateway instances + outdated service definition still recurring - added stronger remediation guidance
+- **Telegram instability pattern**: 41+ reconnect events documented - webhook migration recommended
+
+### v1.10.0
+- Enhanced backup staleness detection with flexible date parsing (handles YYYYMMDD and YYYY-MM-DD formats)
+- Added missing pentest tools check (feroxbuster, dalfox, naabu, nxc/netexec, rustscan) to tool availability section
+- Improved impacket check: dynamic Python version detection instead of hardcoded 3.11
+- Added disk usage warning tier at 70% (alert at 80%) for earlier visibility
+- Added gateway manual process detection improvement: explicit PID detection from status output
+- Enhanced Telegram bot token validation check in gateway status parsing
+- Improved cron job model drift detection to handle provider/model field variations
+- Added system cron safety net check enhancement: verifies both user and system crontabs
+- Enhanced unexpected listening ports check: expanded expected ports list (9119 for Hermes Dashboard)
+- Fixed port 9119 false positive - marked as safe expected port
+
 ### v1.9.0
 - Fixed Daily Health Check cron job: removed incorrect `@RogelioTr` chat_id reference, now uses chat_id 585583379 directly
 - Weekly Health Check and Daily Health Check prompts updated to specify using chat_id numeric ID instead of @username
@@ -186,6 +226,32 @@ Or use the provided script:
 - Checks 15 critical pentest tools: nuclei, sqlmap, nmap, nikto, whatweb, testssl, hydra, gobuster, ffuf, wpscan, httpx, subfinder, amass, waybackurls, assetfinder
 - Compares local version vs GitHub releases/latest API endpoint
 - Fallback to tags endpoint if no release found
+### v1.12.0 (2026-07-13)
+- **System cron detection fix**: Updated daily-check.sh to properly check `/etc/cron.d/` directory for system-level cron safety net (previously only checked user crontab). Now correctly detects `/etc/cron.d/hermes-daily`.
+- **Expected ports whitelist expanded**: Added Ubuntu defaults - 53 (systemd-resolved DNS), 631 (CUPS printing), 3389 (RDP/xrdp) - plus Hermes Dashboard 9119. Eliminated false positive "UNEXPECTED LISTENING PORTS" alerts.
+- **Backup format detection enhanced**: Script now checks THREE backup formats: legacy `state.db.bak.*`, new `hermes_backup_*.tar.gz` in `~/.hermes/backups/`, and `hermes-backup-*.zip` in `~/`. Date extraction uses flexible regex (`grep -oE '[0-9]{8}'`) handling all formats.
+- **mcp module install**: Added `pip install mcp` to resolve `ModuleNotFoundError: No module named 'mcp'` in application logs.
+
+### v1.11.0 (2026-07-12)
+- **Backup location mismatch fix**: Health check now verifies BOTH legacy (`~/.hermes/state.db.bak.*`) AND new format (`~/.hermes/backups/hermes_backup_*.tar.gz`) backup locations. New backup_arsenal.sh creates timestamped tarballs in backups/ dir, not legacy .bak files in root.
+- **Disk usage escalation**: Alert at 79% (warning 70%, critical 80%) - backup tarballs consuming ~5GB+ in `/home/hermes/.hermes/backups/`
+- **Backup timeout detection**: Added check for backup job timeouts (300s terminal timeout) - large tarballs (1.6GB+) exceed default timeout
+- **Missing mcp module detection**: Added check for `ModuleNotFoundError: No module named 'mcp'` in application logs
+- **Gateway conflict persistence**: Multiple gateway instances + outdated service definition still recurring - added stronger remediation guidance
+- **Telegram instability pattern**: 41+ reconnect events documented - webhook migration recommended
+
+### v1.10.0
+- Enhanced backup staleness detection with flexible date parsing (handles YYYYMMDD and YYYY-MM-DD formats)
+- Added missing pentest tools check (feroxbuster, dalfox, naabu, nxc/netexec, rustscan) to tool availability section
+- Improved impacket check: dynamic Python version detection instead of hardcoded 3.11
+- Added disk usage warning tier at 70% (alert at 80%) for earlier visibility
+- Added gateway manual process detection improvement: explicit PID detection from status output
+- Enhanced Telegram bot token validation check in gateway status parsing
+- Improved cron job model drift detection to handle provider/model field variations
+- Added system cron safety net check enhancement: verifies both user and system crontabs
+- Enhanced unexpected listening ports check: expanded expected ports list (9119 for Hermes Dashboard)
+- Fixed port 9119 false positive - marked as safe expected port
+
 ### v1.9.0
 - Fixed Daily Health Check cron job: removed incorrect `@RogelioTr` chat_id reference, now uses chat_id 585583379 directly
 - Weekly Health Check and Daily Health Check prompts updated to specify using chat_id numeric ID instead of @username

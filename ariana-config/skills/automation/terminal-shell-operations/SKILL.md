@@ -688,6 +688,121 @@ tar -xJf /tmp/7z.tar.xz -C ~/tools/7z_tool 2>/dev/null
 ~/tools/7z_tool/7zz x archive.7z -ooutput_dir -y
 ```
 
+### Background Compilation Strategy for Go/Rust Tools (Jul 2026)
+
+On VMs without swap (like Roger's Ubuntu 24.04 VM with Intel HD 510, no GPU):
+- Go/Rust builds consume 2-4 GB RAM and 5-15 min CPU
+- Running multiple builds in parallel → OOM kill
+- **Pattern:** Launch one at a time with `terminal(background=true, notify_on_complete=true)`
+- Example:
+```bash
+# Launch in background, get notified when done
+terminal(background=true, notify_on_complete=true,
+  command="cd ~/tools && go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest")
+```
+
+**Chaining multiple builds:**
+1. Launch first (naabu) → wait for notification
+2. Launch second (dalfox) → wait for notification  
+3. Launch third (feroxbuster) → wait for notification
+4. Launch fourth (rustscan) → wait for notification
+
+This sequential background approach prevents OOM while keeping the agent responsive.
+
+### Rust Toolchain Prerequisite
+
+Required for: feroxbuster, rustscan, netexec (aardwolf dependency)
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+source ~/.cargo/env
+```
+
+After installing Rust, verify:
+```bash
+rustc --version
+cargo --version
+```
+
+### Safe Wrapper Script Creation (CRITICAL - Jun 2026)
+
+**BUG PATTERN:** Using `cat > ~/.local/bin/tool << 'EOF'` from inside a tool's git-cloned directory can overwrite the original script file (e.g., `nikto.pl`, `whatweb`), causing recursive shell loops (SHLVL=1000, "shell level too high").
+
+**Root cause:** When the `cat > file` target is inside the same directory as the tool's entry point, it can overwrite the original script before the heredoc content is written.
+
+**Fix:** ALWAYS use the `write_file` tool (Python) to create wrapper scripts — NEVER use terminal `cat` heredocs inside tool directories.
+
+**Recovery if it happens:** `cd /tmp/<tool> && git checkout -- .` to restore original files.
+
+**Safe pattern:**
+```python
+write_file(path="/home/hermes/.local/bin/nikto", content="#!/bin/sh\nexec perl ~/tools/nikto/program/nikto.pl \"$@\"\n")
+```
+
+### Whatweb Recursive Wrapper Bug
+The file `/tmp/whatweb/whatweb` is a **shell script** (not Ruby). If a wrapper calls `ruby /tmp/whatweb/whatweb`, it creates infinite recursion. Always call the Ruby entry point: `ruby -Ilib lib/whatweb.rb`.
+
+### Pip --target for Venv PermissionError
+When `pip install` to the Hermes venv fails with `PermissionError: [Errno 13] Permission denied`:
+```bash
+mkdir -p ~/.local/lib/python3.11/site-packages
+/usr/local/lib/hermes-agent/venv/bin/pip3 install --target ~/.local/lib/python3.11/site-packages <package>
+# Then use PYTHONPATH=/home/hermes/.local/lib/python3.11/site-packages in wrapper scripts
+```
+
+### python3 → python Symlink (sqlmap)
+sqlmap's shebang is `#!/usr/bin/env python`. If only `python3` exists:
+```bash
+sudo ln -sf /usr/bin/python3 /usr/bin/python
+```
+
+### Impacket ModuleNotFoundError (Jul 2026)
+The daily health check reported `ModuleNotFoundError: No module named 'impacket'`. The issue is that impacket was installed in the wrong location or missing `pycryptodome` dependency.
+
+**Fix:**
+```bash
+~/.local/bin/uv pip install --target ~/.local/lib/python3.11/site-packages impacket pycryptodome
+# Then verify:
+PYTHONPATH=~/.local/lib/python3.11/site-packages python3 -c "import impacket; print('impacket ok')"
+```
+
+**Root cause:** The original installation used `uv pip install --target ~/.local/lib/python3.11/site-packages` but missed the `pycryptodome` dependency which is required for the Cryptodome module used by impacket.
+
+### john the ripper — GCC 15 Compilation Fail
+- **Compilation fails** on GCC 15 (`undefined reference to DES_bs_all`). All workarounds tried (`--without-openssl`, `-no-pie`, `CFLAGS="-Wno-error"`) fail.
+- **Solution:** `sudo apt install john` — works perfectly, installs v1.9.0
+- **Path:** `/usr/sbin/john` (system apt)
+- **Note:** `john --version` doesn't exist; just run `john` to see version info
+
+### hashcat — Requires GPU
+hashcat hangs indefinitely without GPU/POCL. Not usable in VM. Alternative: hydra for online, john for offline.
+
+### Java Installation (No-Sudo, for Burp Suite)
+Java can't be installed via apt without sudo. Use Eclipse Temurin JRE tarball:
+```bash
+curl -L --max-time 60 "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.10+7/OpenJDK17U-jre_x64_linux_hotspot_17.0.10_7.tar.gz" -o /tmp/temurin-jre.tar.gz
+mkdir -p ~/tools/java && tar xzf /tmp/temurin-jre.tar.gz -C ~/tools/java
+# Verify: ~/tools/java/jdk-17.0.10+7-jre/bin/java -version
+```
+**Note:** Ubuntu `openjdk-17-jre-headless` .deb does NOT include the `java` binary. Use Temurin tar.gz.
+
+### Burp Suite Community Edition (No-Sudo, Portable .jar)
+```bash
+curl -L --max-time 120 "https://portswigger.net/burp/releases/download?product=community&version=2024.10.3&type=Jar" -o ~/tools/burp_community.jar
+# Launch GUI:    java -jar ~/tools/burp_community.jar
+# Launch headless: java -jar ~/tools/burp_community.jar --headless
+```
+Requires Java 17 (above). GUI needs DISPLAY or X11 forwarding. Works headless for automation.
+
+### 7z Standalone (for .7z archives)
+Many tools (hashcat) ship as `.7z` archives. `p7zip-full` requires sudo. Standalone alternative:
+```bash
+mkdir -p ~/tools/7z_tool
+curl -sL "https://www.7-zip.org/a/7z2301-linux-x64.tar.xz" -o /tmp/7z.tar.xz
+tar -xJf /tmp/7z.tar.xz -C ~/tools/7z_tool 2>/dev/null
+~/tools/7z_tool/7zz x archive.7z -ooutput_dir -y
+```
+
 ### Go Binary Download Pattern
 ```bash
 # Most ProjectDiscovery tools use .zip releases:

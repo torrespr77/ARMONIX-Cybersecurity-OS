@@ -155,6 +155,43 @@ Full pentest methodology for BRIDA IT Services clients. See `references/pentest-
 - Herramientas instaladas y comandos de instalación
 - Score methodology por categoría
 
+### Current Arsenal Status (Jul 16 2026)
+
+**Global Score: ~96/100** (was ~85/100)
+
+| Area | Coverage | Status | Key Tools |
+|------|----------|--------|-----------|
+| Recon / OSINT | 100% | ✅ Full | nmap, subfinder, amass, assetfinder, whatweb, theHarvester, **naabu** ✅, **rustscan** ✅ |
+| Web App Testing | 100% | ✅ Full | Burp, ZAP, nikto, nuclei, gobuster, dirb, ffuf, sqlmap, httpx, wpscan, waybackurls, **testssl.sh** ✅, **dalfox** ✅, **feroxbuster** ✅ |
+| Network (External) | 100% | ✅ Full | hydra, masscan, arp-scan, enum4linux-ng, **naabu** ✅, **rustscan** ✅ |
+| Exploitation | 95% | ✅ Full | Metasploit, Impacket |
+| Active Directory | 95% | ✅ Full | BloodHound.py, certipy, Responder, krbrelayx, **netexec** ✅ |
+| Post-Exploitation | 90% | ✅ Full | Impacket, Sliver, Chisel, secretsdump |
+| Cloud | 95% | ✅ Full | ScoutSuite, Prowler |
+| **Social Engineering / SOCMINT** | **100%** | ✅ **Full (NEW)** | Gophish, evilginx2, SET, **Sherlock** ✅, **Holehe** ✅, **Maigret** ✅, **linkedin2username** ✅ |
+| Password Attacks | 90% | ✅ Full | john, hashcat (CPU) |
+| Vuln Scanning | 100% | ✅ Full | nuclei, nessus (external) |
+| Reporting | 100% | ✅ Full | BRIDA custom templates |
+| SCADA/ICS | 95% | ✅ Full | modbus-scan, ics-scan, s7-info |
+| DevSecOps | 30% | 🟠 Gap | — |
+| Wireless | 0% | 🔴 Gap | — |
+| Mobile | 0% | 🔴 Gap | — |
+
+**Recently Installed (Jul 15-16 2026):**
+- **testssl.sh** v3.3dev — SSL/TLS testing (bash script)
+- **naabu** v2.x — Fast port scanner (Go)
+- **dalfox** v2.x — XSS scanner (Go)
+- **netexec** v1.5.1 — AD/Post-Exploitation (Python+Rust)
+- **feroxbuster** v2.13.1 — Content discovery (Rust/cargo) ✅
+- **rustscan** v2.4.1 — Fast port scanning (Rust/cargo) ✅
+- **Sherlock** 0.16.0 — Username OSINT 400+ networks (uv tool) ✅
+- **Holehe** latest — Email OSINT 120+ platforms (uv tool) ✅
+- **Maigret** latest — Username OSINT 3000+ sites (uv tool) ✅
+- **linkedin2username** 0.30 — Company username generator (uv pip --target) ✅
+- **theHarvester** 4.11.1 — Rebuilt venv with Playwright + chromium ✅
+
+**New Automation:** `web-recon-v2.sh` — 7-module pipeline (infra + SOCMINT) with unified JSON report
+
 ## BRIDA Agent Runbooks (Internal — Ariana/Hermes Agent)
 
 ### Runbook: GitHub Backup de Configuración Ariana

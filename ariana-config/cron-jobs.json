@@ -20,15 +20,15 @@
       "schedule_display": "0 9 * * *",
       "repeat": {
         "times": null,
-        "completed": 21
+        "completed": 26
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-23T17:03:15.002544-06:00",
-      "next_run_at": "2026-07-11T09:00:00-06:00",
-      "last_run_at": "2026-07-10T09:02:02.650481-06:00",
+      "next_run_at": "2026-07-18T09:00:00-06:00",
+      "last_run_at": "2026-07-16T09:01:41.750685-06:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -64,15 +64,15 @@
       "schedule_display": "0 10 * * 5",
       "repeat": {
         "times": null,
-        "completed": 5
+        "completed": 6
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-23T17:03:17.028374-06:00",
-      "next_run_at": "2026-07-17T10:00:00-06:00",
-      "last_run_at": "2026-07-07T01:49:25.063026-06:00",
+      "next_run_at": "2026-07-24T10:00:00-06:00",
+      "last_run_at": "2026-07-10T11:01:49.497755-06:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -95,9 +95,9 @@
       "skills": [],
       "skill": null,
       "model": null,
-      "provider": null,
-      "provider_snapshot": "openrouter",
-      "model_snapshot": "nvidia/nemotron-3-super-120b-a12b:free",
+      "provider": "openrouter",
+      "provider_snapshot": null,
+      "model_snapshot": "nvidia/nemotron-3-ultra-550b-a55b:free",
       "base_url": null,
       "script": null,
       "no_agent": false,
@@ -110,17 +110,17 @@
       "schedule_display": "0 23 * * *",
       "repeat": {
         "times": null,
-        "completed": 4
+        "completed": 12
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-07T03:16:59.747118-06:00",
-      "next_run_at": "2026-07-10T23:00:00-06:00",
-      "last_run_at": "2026-07-09T23:00:17.414484-06:00",
-      "last_status": "error",
-      "last_error": "RuntimeError: Skipped to prevent unintended spend: global inference config drifted since this job was created (model 'nvidia/nemotron-3-super-120b-a12b:free' -> 'nvidia/nemotron-3-ultra-550b-a55b:free'), and this job is unpinned. No inference call was made. To run on the new config, pin it explicitly: `cronjob action=update job_id=f93a5953e431 provider=<provider> model=<model>` (or pin the original values to keep them). See #44585.",
+      "next_run_at": "2026-07-17T23:00:00-06:00",
+      "last_run_at": "2026-07-16T23:21:53.717721-06:00",
+      "last_status": "ok",
+      "last_error": null,
       "last_delivery_error": null,
       "deliver": "origin",
       "origin": {
@@ -137,5 +137,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-07-10T10:00:03.134814-06:00"
+  "updated_at": "2026-07-17T10:48:03.795898-06:00"
 }

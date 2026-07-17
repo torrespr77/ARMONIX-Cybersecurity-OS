@@ -12,6 +12,9 @@ HAS_ISSUES=0
 # 1. Check Gateway Status
 echo "🔍 Checking gateway status..." >&2
 GATEWAY_STATUS=$(hermes gateway status 2>&1)
+# 1. Check Gateway Status
+echo "🔍 Checking gateway status..." >&2
+GATEWAY_STATUS=$(hermes gateway status 2>&1)
 GATEWAY_EXIT=$?
 
 if [ $GATEWAY_EXIT -ne 0 ]; then
@@ -25,6 +28,26 @@ else
         echo "⚠️  GATEWAY STATUS ISSUES DETECTED" >> "$ISSUES_FILE"
         echo "   Output shows potential problems:" >> "$ISSUES_FILE"
         echo "$GATEWAY_STATUS" | grep -i "error\|fail\|another.*gateway.*started\|exiting.*to.*avoid.*double\|service.*outdated\|both.*user.*and.*system.*gateway" | sed 's/^/   /' >> "$ISSUES_FILE"
+        HAS_ISSUES=1
+    fi
+    
+    # Check for manual foreground process blocking systemd
+    if echo "$GATEWAY_STATUS" | grep -q "PID(s):"; then
+        MANUAL_PID=$(echo "$GATEWAY_STATUS" | grep "PID(s):" | sed 's/.*PID(s): *//')
+        if [ -n "$MANUAL_PID" ]; then
+            echo "⚠️  MANUAL GATEWAY PROCESS DETECTED BLOCKING SYSTEMD" >> "$ISSUES_FILE"
+            echo "   Manual process PID: $MANUAL_PID" >> "$ISSUES_FILE"
+            echo "   This prevents systemd service from starting properly" >> "$ISSUES_FILE"
+            echo "   Fix: pkill -f \"hermes_cli.main gateway run\" && hermes gateway restart" >> "$ISSUES_FILE"
+            HAS_ISSUES=1
+        fi
+    fi
+    
+    # Check for Telegram bot token validation issues
+    if echo "$GATEWAY_STATUS" | grep -qi "token.*reject\|invalid.*token\|chat not found"; then
+        echo "⚠️  TELEGRAM BOT TOKEN/CHAT ID VALIDATION ISSUE" >> "$ISSUES_FILE"
+        echo "   Gateway logs show token rejected or chat not found" >> "$ISSUES_FILE"
+        echo "   Verify TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in config" >> "$ISSUES_FILE"
         HAS_ISSUES=1
     fi
 fi
@@ -74,6 +97,11 @@ else
         echo "   Usage: $USAGE_PCT% (threshold: 80%)" >> "$ISSUES_FILE"
         echo "   Details: $DF_OUTPUT" >> "$ISSUES_FILE"
         HAS_ISSUES=1
+    elif [ "$USAGE_PCT" -gt 70 ]; then
+        echo "⚠️  ELEVATED DISK USAGE (WARNING TIER)" >> "$ISSUES_FILE"
+        echo "   Usage: $USAGE_PCT% (warning: 70%, alert: 80%)" >> "$ISSUES_FILE"
+        echo "   Details: $DF_OUTPUT" >> "$ISSUES_FILE"
+        HAS_ISSUES=1
     else
         echo "✅ Disk usage: $USAGE_PCT% (OK)" >> "$ISSUES_FILE"
     fi
@@ -82,24 +110,53 @@ echo "" >> "$ISSUES_FILE"
 
 # 4. Check Recent Backups
 echo "🔍 Checking backups..." >&2
-BACKUP_FILES=$(ls -lt "$HOME/.hermes/state.db.bak."* 2>/dev/null | head -3)
-BACKUP_EXIT=$?
 
-if [ $BACKUP_EXIT -ne 0 ] || [ -z "$BACKUP_FILES" ]; then
+# Check BOTH backup formats: legacy state.db.bak.* AND new hermes_backup_*.tar.gz
+BACKUP_FILES_LEGACY=$(ls -lt "$HOME/.hermes/state.db.bak."* 2>/dev/null | head -3)
+BACKUP_FILES_NEW=$(ls -lt "$HOME/.hermes/backups/hermes_backup_"*.tar.gz 2>/dev/null | head -3)
+
+BACKUP_FILES=""
+if [ -n "$BACKUP_FILES_NEW" ]; then
+    BACKUP_FILES="$BACKUP_FILES_NEW"
+elif [ -n "$BACKUP_FILES_LEGACY" ]; then
+    BACKUP_FILES="$BACKUP_FILES_LEGACY"
+fi
+
+if [ -z "$BACKUP_FILES" ]; then
     echo "❌ NO RECENT BACKUPS FOUND" >> "$ISSUES_FILE"
-    echo "   Searched: $HOME/.hermes/state.db.bak.*" >> "$ISSUES_FILE"
+    echo "   Searched: $HOME/.hermes/state.db.bak.* and $HOME/.hermes/backups/hermes_backup_*.tar.gz" >> "$ISSUES_FILE"
     HAS_ISSUES=1
 else
     echo "✅ Found recent backups:" >> "$ISSUES_FILE"
     echo "$BACKUP_FILES" | sed 's/^/   /' >> "$ISSUES_FILE"
     
-    LATEST_BACKUP=$(ls -t "$HOME/.hermes/state.db.bak."* 2>/dev/null | head -1)
+    # Use the newest backup (prefer new format)
+    LATEST_BACKUP=""
+    if [ -n "$BACKUP_FILES_NEW" ]; then
+        LATEST_BACKUP=$(ls -t "$HOME/.hermes/backups/hermes_backup_"*.tar.gz 2>/dev/null | head -1)
+    else
+        LATEST_BACKUP=$(ls -t "$HOME/.hermes/state.db.bak."* 2>/dev/null | head -1)
+    fi
+    
     if [ -n "$LATEST_BACKUP" ]; then
-        BACKUP_DATE=$(basename "$LATEST_BACKUP" | cut -d'.' -f4 | cut -c1-8)
+        BACKUP_BASENAME=$(basename "$LATEST_BACKUP")
+        # Extract date from formats: 
+        # - state.db.bak.20260706_020034 or state.db.bak.2026-07-06_020034
+        # - hermes_backup_20260712_201954.tar.gz
+        if echo "$BACKUP_BASENAME" | grep -qE 'hermes_backup_([0-9]{8})_'; then
+            BACKUP_DATE=$(echo "$BACKUP_BASENAME" | sed -E 's/.*hermes_backup_([0-9]{8})_.*/\1/')
+        elif echo "$BACKUP_BASENAME" | grep -qE '\.([0-9]{8})_'; then
+            BACKUP_DATE=$(echo "$BACKUP_BASENAME" | sed -E 's/.*\.([0-9]{8})_.*/\1/')
+        elif echo "$BACKUP_BASENAME" | grep -qE '\.([0-9]{4}-[0-9]{2}-[0-9]{2})_'; then
+            BACKUP_DATE=$(echo "$BACKUP_BASENAME" | sed -E 's/.*\.([0-9]{4}-[0-9]{2}-[0-9]{2})_.*/\1/' | tr -d '-')
+        else
+            BACKUP_DATE=""
+        fi
+        
         TODAY=$(date '+%Y%m%d')
         YESTERDAY=$(date -d "yesterday" '+%Y%m%d')
         
-        if [ "$BACKUP_DATE" != "$TODAY" ] && [ "$BACKUP_DATE" != "$YESTERDAY" ]; then
+        if [ -n "$BACKUP_DATE" ] && [ "$BACKUP_DATE" != "$TODAY" ] && [ "$BACKUP_DATE" != "$YESTERDAY" ]; then
             echo "⚠️  LATEST BACKUP IS NOT FROM TODAY/YESTERDAY" >> "$ISSUES_FILE"
             echo "   Latest: $BACKUP_DATE, Expected: $TODAY or $YESTERDAY" >> "$ISSUES_FILE"
             HAS_ISSUES=1
@@ -135,14 +192,40 @@ echo "" >> "$ISSUES_FILE"
 
 # Check for system-level cron safety net
 echo "🔍 Checking for system-level cron safety net..." >&2
-if ! crontab -l 2>/dev/null | grep -q "hermes.*daily.*check\|daily.*health.*check"; then
-    echo "⚠️  NO SYSTEM-LEVEL CRON SAFETY NET FOR DAILY CHECK" >> "$ISSUES_FILE"
+SYSTEM_CRON_FOUND=0
+USER_CRON_FOUND=0
+
+# Check user crontab
+if crontab -l 2>/dev/null | grep -q "hermes.*daily.*check\|daily.*health.*check"; then
+    USER_CRON_FOUND=1
+fi
+
+# Check system crontabs
+if [ -f /etc/crontab ] && grep -q "hermes.*daily.*check\|daily.*health.*check" /etc/crontab 2>/dev/null; then
+    SYSTEM_CRON_FOUND=1
+fi
+if ls /etc/cron.d/ 2>/dev/null | grep -q hermes; then
+    if grep -r "hermes.*daily.*check\|daily.*health.*check" /etc/cron.d/ 2>/dev/null; then
+        SYSTEM_CRON_FOUND=1
+    fi
+fi
+
+if [ $USER_CRON_FOUND -eq 1 ] && [ $SYSTEM_CRON_FOUND -eq 1 ]; then
+    echo "   ✅ System-level AND user-level cron safety nets found" >> "$ISSUES_FILE"
+elif [ $SYSTEM_CRON_FOUND -eq 1 ]; then
+    echo "   ✅ System-level cron safety net found" >> "$ISSUES_FILE"
+elif [ $USER_CRON_FOUND -eq 1 ]; then
+    echo "   ⚠️  ONLY USER-LEVEL CRON FOUND (no system safety net)" >> "$ISSUES_FILE"
     echo "   The daily health check runs inside Hermes only. If Hermes is down, no alert fires." >> "$ISSUES_FILE"
     echo "   Recommendation: Add system cron as safety net:" >> "$ISSUES_FILE"
     echo "     echo \"0 9 * * * hermes /usr/local/bin/hermes run skill:hermes-daily-check\" | sudo tee /etc/cron.d/hermes-daily" >> "$ISSUES_FILE"
     HAS_ISSUES=1
 else
-    echo "   ✅ System-level cron safety net found" >> "$ISSUES_FILE"
+    echo "⚠️  NO SYSTEM-LEVEL CRON SAFETY NET FOR DAILY CHECK" >> "$ISSUES_FILE"
+    echo "   The daily health check runs inside Hermes only. If Hermes is down, no alert fires." >> "$ISSUES_FILE"
+    echo "   Recommendation: Add system cron as safety net:" >> "$ISSUES_FILE"
+    echo "     echo \"0 9 * * * hermes /usr/local/bin/hermes run skill:hermes-daily-check\" | sudo tee /etc/cron.d/hermes-daily" >> "$ISSUES_FILE"
+    HAS_ISSUES=1
 fi
 echo "" >> "$ISSUES_FILE"
 
@@ -366,17 +449,34 @@ TOOL_CHECKS["sqlmap"]="sqlmap --version"
 TOOL_CHECKS["metasploit"]="msfconsole --version"
 TOOL_CHECKS["bloodhound"]="bloodhound.py --help 2>&1 | head -1"
 TOOL_CHECKS["impacket"]="python3 -c \"import impacket; print('impacket ok')\" 2>&1"
+TOOL_CHECKS["feroxbuster"]="feroxbuster --version"
+TOOL_CHECKS["dalfox"]="dalfox version"
+TOOL_CHECKS["naabu"]="naabu -version"
+TOOL_CHECKS["nxc"]="nxc --version"
+TOOL_CHECKS["netexec"]="netexec --version"
+TOOL_CHECKS["rustscan"]="rustscan --version"
 
 for tool_name in "${!TOOL_CHECKS[@]}"; do
     cmd="${TOOL_CHECKS[$tool_name]}"
     echo "     Checking $tool_name..." >&2
-    if command -v "$tool_name" >/dev/null 2>&1 || [ "$tool_name" = "bloodhound" ] || [ "$tool_name" = "metasploit" ] || [ "$tool_name" = "impacket" ]; then
+    TOOL_AVAILABLE=0
+    if command -v "$tool_name" >/dev/null 2>&1; then
+        TOOL_AVAILABLE=1
+    elif [ "$tool_name" = "metasploit" ] && [ -x "$HOME/tools/metasploit-framework/msfconsole" ]; then
+        TOOL_AVAILABLE=1
+    elif [ "$tool_name" = "bloodhound" ] && [ -x "$HOME/tools/ad/bloodhound/bloodhound-py/bloodhound.py" ]; then
+        TOOL_AVAILABLE=1
+    elif [ "$tool_name" = "impacket" ]; then
+        TOOL_AVAILABLE=1
+    fi
+    
+    if [ $TOOL_AVAILABLE -eq 1 ]; then
         if [ "$tool_name" = "metasploit" ]; then
             if [ -x "$HOME/tools/metasploit-framework/msfconsole" ]; then
                 TOOL_OUTPUT="$("$HOME/tools/metasploit-framework/msfconsole" --version 2>&1 | head -1)"
                 TOOL_EXIT=$?
             else
-                TOOL_OUTPUT="msfconsole not found or not executable in $HOME/tools/metasploit-framework"
+                TOOL_OUTPUT="msfconsole not found or not executable in \$HOME/tools/metasploit-framework"
                 TOOL_EXIT=1
             fi
         elif [ "$tool_name" = "bloodhound" ]; then
@@ -388,7 +488,9 @@ for tool_name in "${!TOOL_CHECKS[@]}"; do
                 TOOL_EXIT=1
             fi
         elif [ "$tool_name" = "impacket" ]; then
-            TEMP_OUTPUT=$(PYTHONPATH="$HOME/.local/lib/python3.11/site-packages:$PYTHONPATH" python3 -c "import impacket; print('impacket ok')" 2>&1)
+            # Dynamic Python version detection
+            PY_VER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')" 2>/dev/null)
+            TEMP_OUTPUT=$(PYTHONPATH="$HOME/.local/lib/python${PY_VER}/site-packages:$PYTHONPATH" python3 -c "import impacket; print('impacket ok')" 2>&1)
             TOOL_OUTPUT=$TEMP_OUTPUT
             if echo "$TEMP_OUTPUT" | grep -q "ModuleNotFoundError"; then
                 TOOL_EXIT=1
@@ -526,7 +628,10 @@ fi
 # 9c. Unexpected Listening Ports
 echo "   Checking for unexpected listening ports..." >&2
 if command -v netstat >/dev/null 2>&1; then
-    EXPECTED_PORTS="22|80|443|3306|5432|6379|8080|8443|9090|9091|9100"
+    # Expected ports: 22 (SSH), 53 (systemd-resolved DNS), 80/443 (HTTP/HTTPS), 3306 (MySQL), 5432 (PostgreSQL), 6379 (Redis),
+    # 8080/8443 (alt HTTP/HTTPS), 9090/9091 (Prometheus/alertmanager), 9100 (node_exporter),
+    # 9119 (Hermes Dashboard), 3389 (RDP/xrdp), 631 (CUPS printing)
+    EXPECTED_PORTS="22|53|80|443|3306|5432|6379|8080|8443|9090|9091|9100|9119|3389|631"
     
     LISTEN_PORTS=$(netstat -tuln 2>/dev/null | grep LISTEN | awk '{print $4}' | awk -F: '{print $NF}' | sort -n | uniq)
     
@@ -545,7 +650,7 @@ if command -v netstat >/dev/null 2>&1; then
         echo "⚠️  UNEXPECTED LISTENING PORTS DETECTED: $UNEXPECTED_PORTS" >> "$ISSUES_FILE"
         HAS_ISSUES=1
     else
-        echo "      ✅ No unexpected listening ports found" >> "$ISSUES_FILE"
+        echo "      ✅ No unexpected listening ports found (9119 Hermes Dashboard is expected)" >> "$ISSUES_FILE"
     fi
 else
     echo "   ℹ️  netstat not available, skipping port check" >> "$ISSUES_FILE"
