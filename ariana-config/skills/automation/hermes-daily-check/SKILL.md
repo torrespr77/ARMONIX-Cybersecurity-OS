@@ -169,6 +169,13 @@ Or use the provided script:
 
 ## Changelog
 
+### v1.14.0 (2026-07-17)
+- **Backup cleanup procedure documented**: Added manual cleanup workflow for `~/.hermes/backups/hermes_backup_*.tar.gz` (keep last 3, remove older). Freed 21 GB in session.
+- **Disk cleanup procedure documented**: Cache purge commands for pip, npm, huggingface, uv, nvidia caches — freed ~11 GB additional.
+- **Nightly backup job behavior documented**: `backup_arsenal.sh` creates TWO backups: (1) arsenal tarball ~4GB in `~/.hermes/backups/` and (2) config tarball ~41MB in same dir. Weekly health check runs `hermes backup` creating ZIP ~268MB in `~/`.
+- **Cron job management**: Daily health check cron job (ff22f6cee779) removed per user request; weekly (b1b8a3c46227) and nightly (f93a5953e431) remain active.
+- **Backup retention note**: Weekly health check should prune old backups (keep last 3), but manual cleanup was needed because old backups accumulated before retention logic was added.
+
 ### v1.13.0 (2026-07-14)
 - **Expected ports whitelist updated**: Added Ubuntu defaults - 53 (systemd-resolved DNS), 631 (CUPS printing), 3389 (RDP/xrdp) - to eliminate false positive "UNEXPECTED LISTENING PORTS" alerts on standard Ubuntu services.
 - **Daily check findings documented**: Created `references/2026-07-14-daily-check-findings.md` with comprehensive issue summary, severity matrix, remediation checklist, and priority actions for:

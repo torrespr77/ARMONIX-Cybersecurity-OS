@@ -20,15 +20,15 @@
       "schedule_display": "0 10 * * 5",
       "repeat": {
         "times": null,
-        "completed": 7
+        "completed": 8
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-23T17:03:17.028374-06:00",
-      "next_run_at": "2026-07-24T10:00:00-06:00",
-      "last_run_at": "2026-07-17T10:50:51.327263-06:00",
+      "next_run_at": "2026-07-31T10:00:00-06:00",
+      "last_run_at": "2026-07-17T11:40:39.129580-06:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -42,10 +42,7 @@
       "enabled_toolsets": null,
       "workdir": null,
       "profile": "default",
-      "fire_claim": {
-        "at": "2026-07-17T11:38:37.421141-06:00",
-        "by": "aiagent:1785"
-      }
+      "fire_claim": null
     },
     {
       "id": "f93a5953e431",
@@ -69,15 +66,15 @@
       "schedule_display": "0 9 * * 5",
       "repeat": {
         "times": null,
-        "completed": 13
+        "completed": 14
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-07T03:16:59.747118-06:00",
-      "next_run_at": "2026-07-24T09:00:00-06:00",
-      "last_run_at": "2026-07-17T11:31:40.958786-06:00",
+      "next_run_at": "2026-07-31T09:00:00-06:00",
+      "last_run_at": "2026-07-24T09:15:44.733553-06:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -117,16 +114,16 @@
       "schedule_display": "0 8 * * 5",
       "repeat": {
         "times": null,
-        "completed": 0
+        "completed": 1
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-17T11:10:42.277931-06:00",
-      "next_run_at": "2026-07-24T08:00:00-06:00",
-      "last_run_at": null,
-      "last_status": null,
+      "next_run_at": "2026-07-31T08:00:00-06:00",
+      "last_run_at": "2026-07-24T08:01:16.407915-06:00",
+      "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
       "deliver": "origin",
@@ -140,8 +137,9 @@
       "enabled_toolsets": [
         "terminal"
       ],
-      "workdir": null
+      "workdir": null,
+      "fire_claim": null
     }
   ],
-  "updated_at": "2026-07-17T11:38:37.421546-06:00"
+  "updated_at": "2026-07-24T10:00:59.842396-06:00"
 }

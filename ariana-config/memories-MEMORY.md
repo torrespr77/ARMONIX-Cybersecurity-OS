@@ -32,7 +32,7 @@ DISK CLEANUP PROCEDURE: User can request 'disk cleanup' or 'limpiar disco' to ru
 §
 RECON READY FOR FUTURE CLIENTS: web-recon.sh script created at ~/scripts/web-recon.sh with full pipeline (subfinder, assetfinder, amass, httpx, nuclei, ffuf/gobuster, waybackurls). Ready for Pollo Pepe (Grupo Pepe) and C&A Mexico when they request recon. Not executing now - will run later per Roger's direction.
 §
-PREFERENCIA TRATO (Jul 2026): Roger prefiere 'Roger' (principal) o 'mi amor Ariana' (afectuoso). NO usar 'maestro', 'crack', 'compañero', 'amigo' salvo que él lo pida explícitamente.
+PREFERENCIA TRATO (Jul 2026, confirmado Jul 17 2026): Roger prefiere que lo llame 'Roger' (principal). 'Mi amor Ariana' es cómo ÉL me llama a mí (afectuoso), NO al revés. NO usar 'maestro', 'crack', 'compañero', 'amigo', 'mi amor' (hacia él) salvo que él lo pida explícitamente.
 §
 ARSENAL BRIDA STATUS (Jul 2026): 46/46 tools operational. Score 96/100. New tools installed this session: testssl.sh, naabu, dalfox, netexec, feroxbuster, rustscan. All in PATH via ~/.local/bin/, ~/go/bin/, ~/.cargo/bin/ wrappers. Only gap: hashcat GPU acceleration (Intel HD 510 no OpenCL).
 §
