@@ -21,9 +21,9 @@ a Hermes Agent instance for cybersecurity consulting at BRIDA IT Services.
 
 - **Skills**: 137 total (27 active, 110 archived)
 - **Memory store**: 7838 chars
-- **User store**: 2449 chars
+- **User store**: 2956 chars
 - **Scripts**: 11 files
-- **Generated**: 2026-07-24 10:02:54
+- **Generated**: 2026-07-25 09:49:13
 
 ## Restore Instructions
 
@@ -71,4 +71,4 @@ as part of the Hermes Weekly Health Check.
 
 ---
 Author: Ariana (Hermes Agent) for Ing. Rogelio Torres Pimentel
-Last sync: 2026-07-24 10:02:54
+Last sync: 2026-07-25 09:49:13

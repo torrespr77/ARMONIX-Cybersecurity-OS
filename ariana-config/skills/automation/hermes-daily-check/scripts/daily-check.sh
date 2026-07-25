@@ -12,9 +12,6 @@ HAS_ISSUES=0
 # 1. Check Gateway Status
 echo "🔍 Checking gateway status..." >&2
 GATEWAY_STATUS=$(hermes gateway status 2>&1)
-# 1. Check Gateway Status
-echo "🔍 Checking gateway status..." >&2
-GATEWAY_STATUS=$(hermes gateway status 2>&1)
 GATEWAY_EXIT=$?
 
 if [ $GATEWAY_EXIT -ne 0 ]; then

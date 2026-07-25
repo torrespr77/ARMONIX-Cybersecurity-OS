@@ -20,7 +20,7 @@
       "schedule_display": "0 10 * * 5",
       "repeat": {
         "times": null,
-        "completed": 8
+        "completed": 9
       },
       "enabled": true,
       "state": "scheduled",
@@ -28,7 +28,7 @@
       "paused_reason": null,
       "created_at": "2026-06-23T17:03:17.028374-06:00",
       "next_run_at": "2026-07-31T10:00:00-06:00",
-      "last_run_at": "2026-07-17T11:40:39.129580-06:00",
+      "last_run_at": "2026-07-24T10:06:23.107147-06:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -46,7 +46,7 @@
     },
     {
       "id": "f93a5953e431",
-      "name": "Hermes Nightly Backup",
+      "name": "Hermes Weekly Backup",
       "prompt": "/home/hermes/scripts/backup_arsenal.sh",
       "skills": [],
       "skill": null,
@@ -94,7 +94,7 @@
     },
     {
       "id": "309e244039eb",
-      "name": "Weekly Disk Cleanup",
+      "name": "Hermes Weekly Disk Cleanup",
       "prompt": "Ejecuta limpieza semanal de disco:\n1. Elimina backups antiguos de Hermes (mantiene \u00faltimos 3): `cd ~/.hermes/backups && ls -t hermes_backup_*.tar.gz 2>/dev/null | tail -n +4 | xargs -r rm -v`\n2. Limpia cach\u00e9s: `pip cache purge 2>/dev/null || true; npm cache clean --force 2>/dev/null || true; rm -rf ~/.cache/pip ~/.cache/huggingface ~/.cache/uv ~/.cache/nvidia 2>/dev/null`\n3. Reporta uso de disco: `df -h /home`\nEntrega resultado al chat de origen.",
       "skills": [],
       "skill": null,
@@ -141,5 +141,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-07-24T10:00:59.842396-06:00"
+  "updated_at": "2026-07-25T01:59:00.084613-06:00"
 }
