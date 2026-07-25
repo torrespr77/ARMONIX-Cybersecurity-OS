@@ -1,5 +1,5 @@
 model:
-  default: nvidia/nemotron-3-ultra-550b-a55b:free
+  default: nvidia/nemotron-3-super-120b-a12b:free
   provider: openrouter
   base_url: https://openrouter.ai/api/v1
   api_mode: chat_completions
@@ -138,47 +138,33 @@ bedrock:
     trace: disabled
 auxiliary:
   vision:
-    provider: openrouter
+    provider: auto
     model: ''
-    base_url: ''
-    api_key: ***REDACTED***
     timeout: 120
     download_timeout: 30
   web_extract:
-    provider: openrouter
+    provider: auto
     model: ''
-    base_url: ''
-    api_key: ***REDACTED***
     timeout: 360
   compression:
-    provider: openrouter
+    provider: auto
     model: ''
-    base_url: ''
-    api_key: ***REDACTED***
     timeout: 120
   skills_hub:
-    provider: openrouter
+    provider: auto
     model: ''
-    base_url: ''
-    api_key: ***REDACTED***
     timeout: 30
   approval:
-    provider: openrouter
+    provider: auto
     model: ''
-    base_url: ''
-    api_key: ***REDACTED***
     timeout: 30
   mcp:
-    provider: openrouter
+    provider: auto
     model: ''
-    base_url: ''
-    api_key: ***REDACTED***
     timeout: 30
   title_generation:
-    provider: openrouter
+    provider: auto
     model: ''
-    base_url: ''
-    api_key: ***REDACTED***
     timeout: 30
     language: ''
   tts_audio_tags:
@@ -188,28 +174,20 @@ auxiliary:
     api_key: ***REDACTED***
     timeout: 30
   triage_specifier:
-    provider: openrouter
+    provider: auto
     model: ''
-    base_url: ''
-    api_key: ***REDACTED***
     timeout: 120
   kanban_decomposer:
-    provider: openrouter
+    provider: auto
     model: ''
-    base_url: ''
-    api_key: ***REDACTED***
     timeout: 180
   profile_describer:
-    provider: openrouter
+    provider: auto
     model: ''
-    base_url: ''
-    api_key: ***REDACTED***
     timeout: 60
   curator:
-    provider: openrouter
+    provider: auto
     model: ''
-    base_url: ''
-    api_key: ***REDACTED***
     timeout: 600
   monitor:
     provider: openrouter
@@ -225,7 +203,7 @@ auxiliary:
     timeout: 120
 display:
   compact: false
-  personality: helpful
+  personality: technical
   resume_display: full
   resume_exchanges: 10
   resume_max_user_chars: 300
@@ -527,6 +505,10 @@ gateway:
   trust_recent_files_seconds: 600
   api_server:
     max_concurrent_runs: 10
+  session_reset:
+    mode: none
+    at_hour: 4
+    idle_minutes: 1440
 streaming:
   enabled: false
   transport: auto
