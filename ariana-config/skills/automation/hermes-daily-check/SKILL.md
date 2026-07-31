@@ -1,7 +1,7 @@
 ---
 name: hermes-daily-check
 description: "Daily health check procedure for Hermes Agent - verifies gateway status, memory files, disk space, backups, error logs, system resources, extended logs (auth, application, cron), tool availability/integrity, and network connectivity. Sends Telegram alert to Roger if issues found."
-version: 1.6.0
+version: 1.6.1
 author: Ariana (Hermes Agent)
 license: MIT
 metadata:
@@ -22,47 +22,63 @@ The daily check performs these verifications:
    - Alerts on service issues or configuration warnings
    - Specifically checks for:
      * Duplicate gateway services (user + system installations)
-     * Outdated service definition warnings
-     * Telegram token validation issues
+     ## Procedure
 
-2. **Persistent Memory Files** - `ls -la ~/.hermes/USER.md ~/.hermes/MEMORY.md`
-   - Verifies critical memory files exist
-   - Alerts if files are missing
+     The daily check performs these verifications:
 
-3. **Disk Space** - `df -h /home`
-   - Checks disk usage percentage
-   - Alerts if usage exceeds 80%
+     1. **Gateway Status** - `hermes gateway status`
+        - Checks if Hermes gateway service is running
+        - Alerts on service issues or configuration warnings
+        - Specifically checks for:
+          * Duplicate gateway services (user + system installations)
+          * Outdated service definition warnings
+          * Telegram token validation issues
 
-4. **Recent Backups** - `ls -lt ~/.hermes/state.db.bak.* | head -3`
-   - Verifies recent backup files exist
-   - Alerts if no backups found
+     2. **Persistent Memory Files** - `ls -la ~/.hermes/USER.md ~/.hermes/MEMORY.md`
+        - Verifies critical memory files exist
+        - Alerts if files are missing
 
-5. **Error Logs** - `grep -i "error\|fatal" ~/.hermes/logs/gateway.log | tail -10`
-   - Checks for recent errors in gateway logs
-   - Alerts if errors/fatal messages found
+     3. **Disk Space** - `df -h /home`
+        - Checks disk usage percentage
+        - Alerts if usage exceeds 80%
 
-6. **System Resources** - Monitors CPU, memory, swap, and load average
-   - **CPU Usage**: Alert if usage > 85%
-   - **Memory Usage**: Alert if RAM usage > 85%
-   - **Swap Usage**: Alert if swap usage > 500MB
-   - **Load Average**: Alert if 1-minute load > number of CPU cores
+     4. **Recent Backups** - Checks for both legacy and new backup formats
+        - Legacy: `ls -lt ~/.hermes/state.db.bak.* | head -3`
+        - New: `ls -lt ~/.hermes/backups/hermes_backup_*.tar.gz | head -3`
+        - Verifies recent backup files exist in either location
+        - Alerts if no backups found in either location
 
-7. **Extended Log Monitoring** - Checks additional log sources for security and operational issues
-   - **Authentication Logs**: Checks /var/log/auth.log for failed SSH attempts (if accessible)
-   - **Application Logs**: Scans ~/.hermes/logs/ for error patterns in agent-specific logs
-   - **Cron Logs**: Verifies scheduled jobs executed correctly via ~/.hermes/cron/output/ and /var/log/cron*
+     5. **Error Logs** - `grep -i "error\\|fatal" ~/.hermes/logs/gateway.log | tail -10`
+        - Checks for recent errors in gateway logs
+        - Alerts if errors/fatal messages found
 
-8. **Tool Availability and Integrity** - Verifies critical pentesting tools are available and functional
-   - **Essential Tools**: Quick version checks for key tools (nmap, nuclei, sqlmap, etc.)
-   - **New Tools (Jul 2026)**: testssl.sh, naabu, dalfox, netexec (Active Directory/Post-Exploitation)
-   - **Pending Tools**: feroxbuster, rustscan (Rust tools - pending cargo install)
-   - **Virtual Environments**: Verify accessibility of Python/venv for tools like Metasploit, BloodHound
-   - **Temp Space**: Check available space in /tmp and /var/tmp for temporary file generation
+     6. **System Resources** - Monitors CPU, memory, swap, and load average
+        - **CPU Usage**: Alert if usage > 85%
+        - **Memory Usage**: Alert if RAM usage > 85%
+        - **Swap Usage**: Alert if swap usage > 500MB
+        - **Load Average**: Alert if 1-minute load > number of CPU cores
 
-9. **Network Connectivity** - Verifies basic network and DNS connectivity, and checks for unexpected listening ports
-   - **Basic Connectivity**: Ping to 1.1.1.1 and/or curl to https://api.ipify.org to confirm internet access
-   - **DNS Resolution**: Verifies /etc/resolv.conf configuration and that dig google.com resolves correctly
-   - **Unexpected Listening Ports**: Checks netstat -tuln for LISTENing ports not in expected list (e.g., common malicious or unexpected ports)
+     7. **Extended Log Monitoring** - Checks additional log sources for security and operational issues
+        - **Authentication Logs**: Checks /var/log/auth.log for failed SSH attempts (if accessible)
+        - **Application Logs**: Scans ~/.hermes/logs/ for error patterns in agent-specific logs
+        - **Cron Logs**: Verifies scheduled jobs executed correctly via ~/.hermes/cron/output/ and /var/log/cron*
+
+     8. **Tool Availability and Integrity** - Verifies critical pentesting tools are available and functional
+        - **Essential Tools**: Quick version checks for key tools (nmap, nuclei, sqlmap, etc.)
+        - **New Tools (Jul 2026)**: testssl.sh, naabu, dalfox, netexec, feroxbuster, rustscan (Active Directory/Post-Exploitation)
+        - **Pending Tools**: feroxbuster, rustscan (Rust tools - pending cargo install)
+        - **Virtual Environments**: Verify accessibility of Python/venv for tools like Metasploit, BloodHound
+        - **Temp Space**: Check available space in /tmp and /var/tmp for temporary file generation
+
+     9. **Network Connectivity** - Verifies basic network and DNS connectivity, and checks for unexpected listening ports
+        - **Basic Connectivity**: Ping to 1.1.1.1 and/or curl to https://api.ipify.org to confirm internet access
+        - **DNS Resolution**: Verifies /etc/resolv.conf configuration and that dig google.com resolves correctly
+        - **Unexpected Listening Ports**: Checks netstat -tuln for LISTENing ports not in expected list (e.g., common malicious or unexpected ports)
+
+     10. **Session Reset Configuration** - `hermes config get gateway.session_reset.mode`
+         - Verifies session reset is configured to prevent unexpected session resets
+         - Alerts if mode is not set to "none" (to maintain persistent conversations as requested)
+         - Expected value: "none"
 
 ## Alerting
 
@@ -162,6 +178,8 @@ Or use the provided script:
 
 - `references/github-backup-procedure.md` — Full documentation of the weekly GitHub config sync (sync-to-github.sh): what gets backed up, sanitization patterns, pitfalls, verification, and disaster recovery.
 - `references/incident-response-procedures.md` — Incident response playbooks for Ariana: severity matrix, SLA, 7 incident types, forense procedures, isolation levels, emergency contacts, and post-incident reporting.
+- `references/session-reset-configuration.md` — Session reset configuration guidelines: ensuring sessions never auto-reset via `gateway.session_reset.mode: none`, verification procedures, and related settings explanation.
+- `references/session-reset-configuration.md` — Session reset configuration guidelines: ensuring sessions never auto-reset via `gateway.session_reset.mode: none`, verification procedures, and related settings explanation.
 
 ## References
 

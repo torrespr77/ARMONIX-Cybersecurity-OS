@@ -1,5 +1,5 @@
 model:
-  default: nvidia/nemotron-3-super-120b-a12b:free
+  default: nvidia/nemotron-3-ultra-550b-a55b:free
   provider: openrouter
   base_url: https://openrouter.ai/api/v1
   api_mode: chat_completions
@@ -446,15 +446,16 @@ approvals:
   mcp_reload_confirm: true
   destructive_slash_confirm: true
 command_allowlist:
-  - script execution via -e/-c flag
-  - sudo with combined-flag privilege escalation
+  - pipe remote content to shell
   - in-place edit of sensitive credential/SSH/shell-rc path
   - shell command via -c/-lc flag
-  - pipe remote content to shell
-  - recursive delete
-  - xargs with rm
   - overwrite system file via redirection
+  - xargs with rm
+  - delete in root path
+  - sudo with combined-flag privilege escalation
+  - recursive delete
   - execute_code
+  - script execution via -e/-c flag
 hooks_auto_accept: false
 security:
   allow_private_urls: false

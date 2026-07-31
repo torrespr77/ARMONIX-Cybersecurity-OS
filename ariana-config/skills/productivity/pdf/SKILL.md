@@ -23,7 +23,13 @@ Use this skill whenever the user wants to do anything with PDF files: reading or
 ## Prerequisites
 
 ```bash
+# Try standard install first
 pip install pypdf pdfplumber reportlab
+# If you encounter permission errors or are in a restricted environment (like a venv that blocks user installs):
+#   pip install --target /path/to/local/dir pypdf pdfplumber reportlab
+#   Then add that path to sys.path in your Python code:
+#   import sys
+#   sys.path.insert(0, '/path/to/local/dir')
 which pdftotext || sudo apt install -y poppler-utils   # pdftotext, pdftoppm, pdfimages
 which qpdf || sudo apt install -y qpdf                 # CLI merge/split/decrypt
 ```

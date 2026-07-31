@@ -1,1 +1,39 @@
-{"version": 1, "installed": {}}
+{
+  "version": 1,
+  "installed": {
+    "segment-anything-model": {
+      "source": "official",
+      "identifier": "official/segment-anything-model",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:5c04334042931003",
+      "install_path": "segment-anything-model",
+      "files": [
+        "SKILL.md",
+        "references/advanced-usage.md",
+        "references/troubleshooting.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-07-31T15:10:10.852088+00:00",
+      "updated_at": "2026-07-31T15:10:10.852088+00:00"
+    },
+    "yuanbao": {
+      "source": "official",
+      "identifier": "official/yuanbao",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:881625ad1581ec37",
+      "install_path": "yuanbao",
+      "files": [
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-07-31T15:10:10.865309+00:00",
+      "updated_at": "2026-07-31T15:10:10.865309+00:00"
+    }
+  }
+}

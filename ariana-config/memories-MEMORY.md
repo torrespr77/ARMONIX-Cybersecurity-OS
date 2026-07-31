@@ -47,3 +47,5 @@ Herramientas SOCMINT instaladas: Sherlock (uv tool), Holehe (uv tool), Maigret (
 C&A México dominio oficial confirmado: https://www.cyamoda.com/ (NO cyasa.com.mx ni c-a.com.mx)
 §
 PDF reports for cyamoda.com pilot recon generated at ~/recon/cyamoda.com/reports/ (reporte_tecnico_cyamoda.pdf 107KB, reporte_ejecutivo_cyamoda.pdf 76KB). Need fresh Telegram bot token to send via API. Pilot recon completed 4/7 modules (timeout on Nuclei). Missing: Dir brute-force, Wayback URLs, SOCMINT. Reference added to pentest-arsenal-brida skill.
+§
+Roger's Go tool workflow: use GOBIN=~/.local/bin with go install to place binaries in ~/.local/bin/ (his standard PATH location).
