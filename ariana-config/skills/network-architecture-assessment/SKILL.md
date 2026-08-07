@@ -1,4 +1,8 @@
-# Skill: Network Architecture Assessment
+---
+name: network-architecture-assessment
+description: Network Architecture Assessment
+category: cybersecurity
+---# Skill: Network Architecture Assessment
 
 ## Descripción
 Metodología para evaluar la arquitectura de red de clientes enterprise, identificar gaps de seguridad y proponer mejoras con enfoque en Fortinet, segmentación y Zero Trust.

@@ -55,3 +55,11 @@ User likes skill consolidation and keeping skills pinned.
 User expects the assistant to confirm actions and follow their lead.
 §
 User prefers concise, step-by-step instructions with immediate error correction, structured formatting (tables, lists), and no unnecessary verbosity. Prefers to be addressed as 'Roger' and dislikes romantic terms.
+§
+Usuario prefiere eliminar referencias de proyectos inactivos (como C&A México) y sus análisis asociados de memoria y notas personales.
+§
+Roger prefiere que se le llame exclusivamente "Roger" — NO usar apodos como "mi amor Ariana", "maestro", "compañero", "crack", etc., a menos que lo solicite explícitamente. El trato debe ser profesional pero con cercanía técnica.
+§
+Roger prefiere reportes de ciberseguridad en formato BRIDA IT Services: encabezados sombreados, badges de severidad con colores, tablas con colores, íconos, puntuaciones DREAD visuales, escenarios de ataque numerados, documentos Word editables (.docx). Valora comunicación concisa, paso a paso, sin verbosidad innecesaria ("menos ruido, más señal"). Quiere que ejecute tareas completas, no solo dé instrucciones.
+§
+Roger quiere que los informes de ciberseguridad incluyan casos de riesgo concretos con ejemplos de cómo se explota cada vulnerabilidad (estilo Pollo Pepe), y que el formato coincida con los documentos BRIDA previos generados (encabezados sombreados, badges de severidad coloreados, DREAD visuales, tablas formateadas, íconos, portada con crédito 'Ing. Rogelio Torres Pimentel, Consultor en Ciberseguridad').

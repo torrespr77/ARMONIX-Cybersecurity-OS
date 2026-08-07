@@ -1,4 +1,8 @@
-# Skill: Security Awareness Training
+---
+name: security-awareness-training
+description: Security Awareness Training
+category: cybersecurity
+---# Skill: Security Awareness Training
 
 ## Descripción
 Programa de capacitación en conciencia de seguridad para empleados de clientes de BRIDA IT Services, incluyendo contenido, metodología, simulaciones de phishing y métricas de efectividad.

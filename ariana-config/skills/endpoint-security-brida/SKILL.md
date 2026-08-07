@@ -1,6 +1,10 @@
 ---
 name: endpoint-security-brida
-description: 'Endpoint security assessment and EDR operations for BRIDA IT Services clients. Covers EDR deployment (CrowdStrike/Trellix), fileless malware detection, LOLBin analysis, persistence hunting, and endpoint hardening. Activates for: endpoint security, EDR, fileless malware, LOLBin, persistence, endpoint hardening, CrowdStrike, Trellix.'
+description: 'Endpoint security assessment and EDR operations for BRIDA IT Services
+  clients. Covers EDR deployment (CrowdStrike/Trellix), fileless malware detection,
+  LOLBin analysis, persistence hunting, and endpoint hardening. Activates for: endpoint
+  security, EDR, fileless malware, LOLBin, persistence, endpoint hardening, CrowdStrike,
+  Trellix.'
 domain: cybersecurity
 subdomain: endpoint-security
 tags:
@@ -26,6 +30,7 @@ mitre_attack:
 - T1140
 - T1547
 - T1574
+category: cybersecurity
 ---
 
 # Endpoint Security — BRIDA IT Services

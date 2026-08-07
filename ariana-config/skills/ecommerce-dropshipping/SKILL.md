@@ -1,6 +1,9 @@
 ---
 name: ecommerce-dropshipping
-description: Gestión automatizada de tiendas e-commerce con modelo dropshipping. Incluye importación de productos, gestión de inventario, procesamiento de pedidos, integración con proveedores y optimización de tienda Shopify.
+description: Gestión automatizada de tiendas e-commerce con modelo dropshipping. Incluye
+  importación de productos, gestión de inventario, procesamiento de pedidos, integración
+  con proveedores y optimización de tienda Shopify.
+category: ecommerce
 ---
 
 # Skill: E-commerce Dropshipping

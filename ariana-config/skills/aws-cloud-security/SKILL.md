@@ -1,4 +1,8 @@
-# Skill: Cloud Security — AWS
+---
+name: aws-cloud-security
+description: Aws Cloud Security
+category: cybersecurity
+---# Skill: Cloud Security — AWS
 
 ## Descripción
 Guía de seguridad para infraestructura en Amazon Web Services (AWS), incluyendo IAM, Security Groups, VPC, logging, monitoreo y mejores prácticas para clientes de BRIDA IT Services.

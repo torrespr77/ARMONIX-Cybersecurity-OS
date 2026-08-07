@@ -1,14 +1,24 @@
 ---
 name: jupyter-live-kernel
-description: "Iterative Python via live Jupyter kernel (hamelnb)."
+description: Iterative Python via live Jupyter kernel (hamelnb).
 version: 1.0.0
 author: Hermes Agent
 license: MIT
-platforms: [linux, macos, windows]
+platforms:
+- linux
+- macos
+- windows
 metadata:
   hermes:
-    tags: [jupyter, notebook, repl, data-science, exploration, iterative]
+    tags:
+    - jupyter
+    - notebook
+    - repl
+    - data-science
+    - exploration
+    - iterative
     category: data-science
+category: data-science
 ---
 
 # Jupyter Live Kernel (hamelnb)

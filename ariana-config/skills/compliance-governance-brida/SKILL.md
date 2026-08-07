@@ -1,43 +1,49 @@
 ---
 name: compliance-governance-brida
-description: "Cumplimiento normativo y gobernanza de ciberseguridad para BRIDA IT Services. Cubre NIST CSF 2.0, ISO 27001:2022, CIS Controls v8, PCI-DSS v4.0, SOC 2, LFPDPPP (Ley Federal de Protección de Datos Personales en Posesión de los Particulares), mapeo MITRE ATT&CK, D3FEND, metodología de gap assessment, roadmap de cumplimiento y preparación para auditorías. Activar cuando el cliente necesite: compliance, governance, NIST, ISO 27001, PCI-DSS, SOC 2, CIS, auditoría, protección de datos, LFPDPPP, gap assessment."
+description: 'Cumplimiento normativo y gobernanza de ciberseguridad para BRIDA IT
+  Services. Cubre NIST CSF 2.0, ISO 27001:2022, CIS Controls v8, PCI-DSS v4.0, SOC
+  2, LFPDPPP (Ley Federal de Protección de Datos Personales en Posesión de los Particulares),
+  mapeo MITRE ATT&CK, D3FEND, metodología de gap assessment, roadmap de cumplimiento
+  y preparación para auditorías. Activar cuando el cliente necesite: compliance, governance,
+  NIST, ISO 27001, PCI-DSS, SOC 2, CIS, auditoría, protección de datos, LFPDPPP, gap
+  assessment.'
 domain: cybersecurity
 subdomain: compliance-governance
-category: governance-and-compliance
+category: cybersecurity
 tags:
-  - compliance
-  - governance
-  - NIST-CSF
-  - ISO-27001
-  - PCI-DSS
-  - SOC-2
-  - CIS-Controls
-  - LFPDPPP
-  - LGPD
-  - MITRE-ATTACK
-  - D3FEND
-  - gap-assessment
-  - audit-preparation
-  - risk-management
-  - data-protection
-  - mexico
+- compliance
+- governance
+- NIST-CSF
+- ISO-27001
+- PCI-DSS
+- SOC-2
+- CIS-Controls
+- LFPDPPP
+- LGPD
+- MITRE-ATTACK
+- D3FEND
+- gap-assessment
+- audit-preparation
+- risk-management
+- data-protection
+- mexico
 version: 2.0.0
 author: BRIDA IT Services
 license: Apache-2.0
 language: es
 frameworks:
-  nist_csf_version: "2.0"
-  iso_27001_version: "2022"
-  cis_controls_version: "v8"
-  pci_dss_version: "v4.0"
-  soc_version: "2"
+  nist_csf_version: '2.0'
+  iso_27001_version: '2022'
+  cis_controls_version: v8
+  pci_dss_version: v4.0
+  soc_version: '2'
 nist_csf_functions:
-  - GOVERN
-  - IDENTIFY
-  - PROTECT
-  - DETECT
-  - RESPOND
-  - RECOVER
+- GOVERN
+- IDENTIFY
+- PROTECT
+- DETECT
+- RESPOND
+- RECOVER
 ---
 
 # Compliance and Governance — BRIDA IT Services v2.0

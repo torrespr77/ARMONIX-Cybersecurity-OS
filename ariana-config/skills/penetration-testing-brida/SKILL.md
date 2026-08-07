@@ -1,169 +1,169 @@
 ---
 name: penetration-testing-brida
-description: >
-  Metodología integral de penetration testing para BRIDA IT Services.
-  Cubre PTES completo, OWASP WSTG para aplicaciones web, pentesting de red,
-  wireless, ingeniería social, plantillas de reporte (ejecutivo + técnico),
-  reglas de engagement, y mapeo a MITRE ATT&CK, NIST CSF y D3FEND.
-  Activado por: pentest, penetration testing, ethical hacking, red team,
-  explotación, vulnerabilidad, Kali Linux, Metasploit, OWASP, PTES,
-  ingeniería social, wireless pentest, reporte de pentest.
+description: 'Metodología integral de penetration testing para BRIDA IT Services.
+  Cubre PTES completo, OWASP WSTG para aplicaciones web, pentesting de red, wireless,
+  ingeniería social, plantillas de reporte (ejecutivo + técnico), reglas de engagement,
+  y mapeo a MITRE ATT&CK, NIST CSF y D3FEND. Activado por: pentest, penetration testing,
+  ethical hacking, red team, explotación, vulnerabilidad, Kali Linux, Metasploit,
+  OWASP, PTES, ingeniería social, wireless pentest, reporte de pentest.
+
+  '
 domain: cybersecurity
 subdomain: penetration-testing
-category: offensive-security
+category: cybersecurity
 tags:
-  - pentest
-  - kali-linux
-  - metasploit
-  - ethical-hacking
-  - red-team
-  - exploitation
-  - owasp-wstg
-  - ptes
-  - wireless
-  - social-engineering
-  - nist-csf
-  - mitre-attack
-  - d3fend
-  - burp-suite
-  - nmap
-  - reporting
+- pentest
+- kali-linux
+- metasploit
+- ethical-hacking
+- red-team
+- exploitation
+- owasp-wstg
+- ptes
+- wireless
+- social-engineering
+- nist-csf
+- mitre-attack
+- d3fend
+- burp-suite
+- nmap
+- reporting
 mitre_attack:
-  - T1046  # Network Service Scanning
-  - T1059  # Command and Scripting Interpreter
-  - T1071  # Application Layer Protocol
-  - T1082  # System Information Discovery
-  - T1083  # File and Directory Discovery
-  - T1190  # Exploit Public-Facing Application
-  - T1203  # Exploitation for Client Execution
-  - T1133  # External Remote Services
-  - T1098  # Account Manipulation
-  - T1078  # Valid Accounts
-  - T1566  # Phishing
-  - T1557  # Adversary-in-the-Middle
-  - T1548  # Abuse Elevation Control Mechanism
-  - T1053  # Scheduled Task/Job
-  - T1505  # Server Software Component
-  - T1021  # Remote Services
-  - T1003  # OS Credential Dumping
-  - T1555  # Credentials from Password Stores
-  - T1110  # Brute Force
-  - T1055  # Process Injection
-  - T1543  # Create or Modify System Process
-  - T1562  # Impair Defenses
-  - T1484  # Domain Policy Modification
-  - T1615  # Group Policy Discovery
-  - T1049  # System Network Connections Discovery
-  - T1018  # Remote System Discovery
-  - T1069  # Permission Groups Discovery
-  - T1033  # System Owner/User Discovery
-  - T1087  # Account Discovery
-  - T1482  # Domain Trust Discovery
-  - T1580  # Cloud Infrastructure Discovery
-  - T1526  # Cloud Service Discovery
-  - T1595  # Active Scanning
-  - T1596  # Search Open DNS/Public Domains
-  - T1593  # Search Open Websites/Domains
-  - T1594  # Search Victim-Owned Websites
-  - T1597  # Search Closed Sources
-  - T1590  # Gather Victim Network Information
-  - T1591  # Gather Victim Org Information
-  - T1592  # Gather Victim Host Information
-  - T1589  # Gather Victim Identity Information
-  - T1585  # Establish Accounts
-  - T1586  # Compromise Accounts
-  - T1583  # Acquire Infrastructure
-  - T1584  # Compromise Infrastructure
-  - T1587  # Develop Capabilities
-  - T1588  # Obtain Capabilities
-  - T1608  # Stage Capabilities
-  - T1210  # Exploitation of Remote Services
-  - T1219  # Remote Access Software
-  - T1105  # Ingress Tool Transfer
-  - T1048  # Exfiltration Over Alternative Protocol
-  - T1041  # Exfiltration Over C2 Channel
-  - T1567  # Exfiltration Over Web Service
-  - T1052  # Exfiltration Over Physical Medium
-  - T1020  # Automated Exfiltration
+- T1046
+- T1059
+- T1071
+- T1082
+- T1083
+- T1190
+- T1203
+- T1133
+- T1098
+- T1078
+- T1566
+- T1557
+- T1548
+- T1053
+- T1505
+- T1021
+- T1003
+- T1555
+- T1110
+- T1055
+- T1543
+- T1562
+- T1484
+- T1615
+- T1049
+- T1018
+- T1069
+- T1033
+- T1087
+- T1482
+- T1580
+- T1526
+- T1595
+- T1596
+- T1593
+- T1594
+- T1597
+- T1590
+- T1591
+- T1592
+- T1589
+- T1585
+- T1586
+- T1583
+- T1584
+- T1587
+- T1588
+- T1608
+- T1210
+- T1219
+- T1105
+- T1048
+- T1041
+- T1567
+- T1052
+- T1020
 nist_csf:
-  - ID.RA-1  # Asset vulnerabilities are identified
-  - ID.RA-3  # Threats, vulnerabilities, likelihoods used to determine risk
-  - ID.RA-5  # Threats, vulnerabilities, likelihoods used to determine risk
-  - DE.CM-01  # Network environments are monitored
-  - DE.CM-09  # Computing hardware and software are monitored
-  - DE.AE-02  # Potentially malicious activity is analyzed
-  - DE.AE-06  # Information is correlated from multiple sources
-  - PR.AC-1  # Identities and credentials are issued, managed, verified
-  - PR.AC-4  # Access permissions and authorizations are managed
-  - PR.AC-5  # Network integrity is protected
-  - PR.DS-1  # Data-at-rest is protected
-  - PR.DS-2  # Data-in-transit is protected
-  - PR.IP-1  # Baseline configuration is maintained
-  - PR.PT-3  # Least functionality principle is incorporated
-  - RS.AN-03  # Forensic analysis is performed
-  - RS.AN-05  # Incident monitoring data is collected
-  - RC.RP-1  # Recovery plan is executed
+- ID.RA-1
+- ID.RA-3
+- ID.RA-5
+- DE.CM-01
+- DE.CM-09
+- DE.AE-02
+- DE.AE-06
+- PR.AC-1
+- PR.AC-4
+- PR.AC-5
+- PR.DS-1
+- PR.DS-2
+- PR.IP-1
+- PR.PT-3
+- RS.AN-03
+- RS.AN-05
+- RC.RP-1
 d3fend:
-  - D3-DA   # Dynamic Analysis
-  - D3-PSA  # Process Spawn Analysis
-  - D3-PSA  # Process Analysis
-  - D3-FCA  # File Content Analysis
-  - D3-SA   # System Analysis
-  - D3-NTA  # Network Traffic Analysis
-  - D3-ANA  # Authentication Analysis
-  - D3-PA   # Password Analysis
-  - D3-CSB  # Credential Scrubbing Behavior
-  - D3-SBV  # Software Behavior Validation
-  - D3-SS   # Session Analysis
-  - D3-TA   # Traffic Analysis
-  - D3-URA  # User Request Analysis
-  - D3-WS   # Web Session Analysis
-  - D3-DI   # Digital Inventory
-  - D3-SAV  # Software Attribute Verification
-  - D3-ISVA # Input Source Validation Analysis
-  - D3-IAA  # Identifier Analysis
-  - D3-DQ   # Database Query Analysis
-  - D3-RPA  # Reverse Resolution of a Pointer
-  - D3-DNSA # DNS Record Analysis
-  - D3-HS   # Host Status Analysis
-  - D3-PLA  # Platform Monitoring
-  - D3-SJA  # System Call Analysis
-  - D3-CE   # Configuration Enforcement
-  - D3-AA   # Administrative Access Control
-  - D3-MFA  # Multi-factor Authentication
-  - D3-SPP  # Software Patch Protection
-  - D3-NI   # Network Isolation
-  - D3-FR   # Firmware Revision Verification
-  - D3-WAF  # Web Application Firewall
-  - D3-IDS  # Intrusion Detection System
-  - D3-SIEM # Security Information and Event Management
-  - D3-EAL  # Execution Allowlisting
-  - D3-EDR  # Endpoint Detection and Response
-  - D3-BA   # Behavioral Analysis
-  - D3-CB   # Certificate-based Authentication
-  - D3-KB   # Kerberos Authentication
-  - D3-LM   # Local Account Monitoring
-  - D3-SA   # Shared Account Monitoring
-  - D3-PM   # Privilege Management
-  - D3-AC   # Access Control
-  - D3-AI   # Asset Inventory
-  - D3-CA   # Credential Access Protection
-  - D3-DB   # Data Backup
-  - D3-DC   # Data Classification
-  - D3-DEN  # Data Encryption
-  - D3-DF   # Data Filtration
-  - D3-DL   # Data Loss Prevention
-  - D3-IM   # Identity Management
-  - D3-LA   # Log Analysis
-  - D3-MA   # Mail Analysis
-  - D3-NA   # Network Analysis
-  - D3-PA   # Patch Application
-  - D3-RA   # Risk Assessment
-  - D3-SA   # Security Assessment
-  - D3-SC   # Security Configuration
-  - D3-SE   # Security Education
-  - D3-SR   # Security Reporting
-  - D3-VA   # Vulnerability Assessment
+- D3-DA
+- D3-PSA
+- D3-PSA
+- D3-FCA
+- D3-SA
+- D3-NTA
+- D3-ANA
+- D3-PA
+- D3-CSB
+- D3-SBV
+- D3-SS
+- D3-TA
+- D3-URA
+- D3-WS
+- D3-DI
+- D3-SAV
+- D3-ISVA
+- D3-IAA
+- D3-DQ
+- D3-RPA
+- D3-DNSA
+- D3-HS
+- D3-PLA
+- D3-SJA
+- D3-CE
+- D3-AA
+- D3-MFA
+- D3-SPP
+- D3-NI
+- D3-FR
+- D3-WAF
+- D3-IDS
+- D3-SIEM
+- D3-EAL
+- D3-EDR
+- D3-BA
+- D3-CB
+- D3-KB
+- D3-LM
+- D3-SA
+- D3-PM
+- D3-AC
+- D3-AI
+- D3-CA
+- D3-DB
+- D3-DC
+- D3-DEN
+- D3-DF
+- D3-DL
+- D3-IM
+- D3-LA
+- D3-MA
+- D3-NA
+- D3-PA
+- D3-RA
+- D3-SA
+- D3-SC
+- D3-SE
+- D3-SR
+- D3-VA
 version: '2.0'
 author: BRIDA IT Services
 license: Apache-2.0

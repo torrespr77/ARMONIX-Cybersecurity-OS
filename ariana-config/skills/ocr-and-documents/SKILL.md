@@ -1,14 +1,25 @@
 ---
 name: ocr-and-documents
-description: "Extract text from PDFs/scans (pymupdf, marker-pdf)."
+description: Extract text from PDFs/scans (pymupdf, marker-pdf).
 version: 2.3.0
 author: Hermes Agent
 license: MIT
-platforms: [linux, macos, windows]
+platforms:
+- linux
+- macos
+- windows
 metadata:
   hermes:
-    tags: [PDF, Documents, Research, Arxiv, Text-Extraction, OCR]
-    related_skills: [powerpoint]
+    tags:
+    - PDF
+    - Documents
+    - Research
+    - Arxiv
+    - Text-Extraction
+    - OCR
+    related_skills:
+    - powerpoint
+category: productivity
 ---
 
 # PDF & Document Extraction

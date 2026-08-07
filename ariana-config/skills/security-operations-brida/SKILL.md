@@ -1,6 +1,10 @@
 ---
 name: security-operations-brida
-description: 'Security Operations (SecOps) and SOC operations for BRIDA IT Services clients. Covers SIEM correlation, log analysis, alert triage, escalation workflows, playbook development, and tabletop exercises. Adapted for mid-market Mexican enterprises. Activates for: SIEM operations, security monitoring, alert triage, SOC setup, log analysis, security operations center.'
+description: 'Security Operations (SecOps) and SOC operations for BRIDA IT Services
+  clients. Covers SIEM correlation, log analysis, alert triage, escalation workflows,
+  playbook development, and tabletop exercises. Adapted for mid-market Mexican enterprises.
+  Activates for: SIEM operations, security monitoring, alert triage, SOC setup, log
+  analysis, security operations center.'
 domain: cybersecurity
 subdomain: security-operations
 tags:
@@ -23,6 +27,7 @@ mitre_attack:
 - T1059
 - T1078
 - T1021
+category: cybersecurity
 ---
 
 # Security Operations (SecOps) — BRIDA IT Services

@@ -1,6 +1,11 @@
 ---
 name: brida-web-application-security
-description: 'Web Application Security assessment and penetration testing for BRIDA IT Services clients. Covers OWASP Top 10 (2021), WSTG methodology, Burp Suite testing, API security (OWASP API Top 10), and business logic flaws. Adapted for mid-market Mexican enterprises with e-commerce, web portals, and internal applications. Activates for: web app pentest, OWASP testing, application security, API security assessment, web vulnerability testing.'
+description: 'Web Application Security assessment and penetration testing for BRIDA
+  IT Services clients. Covers OWASP Top 10 (2021), WSTG methodology, Burp Suite testing,
+  API security (OWASP API Top 10), and business logic flaws. Adapted for mid-market
+  Mexican enterprises with e-commerce, web portals, and internal applications. Activates
+  for: web app pentest, OWASP testing, application security, API security assessment,
+  web vulnerability testing.'
 domain: cybersecurity
 subdomain: web-application-security
 tags:
@@ -24,6 +29,7 @@ mitre_attack:
 - T1059
 - T1078
 - T1133
+category: cybersecurity
 ---
 
 # Web Application Security — BRIDA IT Services

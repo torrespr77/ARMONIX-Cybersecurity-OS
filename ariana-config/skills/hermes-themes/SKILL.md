@@ -1,12 +1,23 @@
 ---
 name: hermes-themes
-description: "Author a Hermes color theme that skins every surface."
+description: Author a Hermes color theme that skins every surface.
 version: 1.0.0
-platforms: [linux, macos, windows]
+platforms:
+- linux
+- macos
+- windows
 metadata:
   hermes:
-    tags: [theme, skin, appearance, cli, tui, desktop, self-config]
+    tags:
+    - theme
+    - skin
+    - appearance
+    - cli
+    - tui
+    - desktop
+    - self-config
     related_skills: []
+category: creative
 ---
 
 # Hermes Themes Skill

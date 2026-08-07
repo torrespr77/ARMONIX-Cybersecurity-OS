@@ -1,98 +1,98 @@
 ---
 name: ransomware-defense-brida
-description: >
-  Defensa integral contra ransomware para clientes de BRIDA IT Services.
-  Cubre prevención, detección, respuesta a incidentes, recuperación y
-  hardening post-incidente. Incluye CISA Ransomware Guide, estrategia de
-  backups 3-2-1, segmentación de red, detección EDR (CrowdStrike/Trellix),
-  playbook de respuesta, consideraciones de negociación, procedimientos de
-  recuperación y mapeo a MITRE ATT&CK, NIST CSF y D3FEND.
-  Activado por: ransomware, ransom, encryption, data lock, CISA,
-  backup strategy, ransomware response, ransomware recovery, incident response,
-  ransomware playbook, negociación ransomware, decryptor, ransomware family.
+description: 'Defensa integral contra ransomware para clientes de BRIDA IT Services.
+  Cubre prevención, detección, respuesta a incidentes, recuperación y hardening post-incidente.
+  Incluye CISA Ransomware Guide, estrategia de backups 3-2-1, segmentación de red,
+  detección EDR (CrowdStrike/Trellix), playbook de respuesta, consideraciones de negociación,
+  procedimientos de recuperación y mapeo a MITRE ATT&CK, NIST CSF y D3FEND. Activado
+  por: ransomware, ransom, encryption, data lock, CISA, backup strategy, ransomware
+  response, ransomware recovery, incident response, ransomware playbook, negociación
+  ransomware, decryptor, ransomware family.
+
+  '
 domain: cybersecurity
 subdomain: ransomware-defense
-category: incident-response
+category: cybersecurity
 triggers:
-  - "ransomware"
-  - "ransom"
-  - "encryption"
-  - "data lock"
-  - "CISA"
-  - "backup strategy"
-  - "ransomware response"
-  - "ransomware recovery"
-  - "incident response"
-  - "ransomware playbook"
-  - "negociación ransomware"
-  - "decryptor"
-  - "ransomware family"
-  - "3-2-1"
-  - "network segmentation"
-  - "EDR detection"
-  - "post-incident"
-  - "hardening"
-  - "negotiation"
-  - "recovery procedures"
+- ransomware
+- ransom
+- encryption
+- data lock
+- CISA
+- backup strategy
+- ransomware response
+- ransomware recovery
+- incident response
+- ransomware playbook
+- negociación ransomware
+- decryptor
+- ransomware family
+- 3-2-1
+- network segmentation
+- EDR detection
+- post-incident
+- hardening
+- negotiation
+- recovery procedures
 tags:
-  - ransomware
-  - cisa
-  - backup
-  - incident-response
-  - encryption
-  - recovery
-  - nist-csf
-  - mitre-attack
-  - d3fend
-  - crowdstrike
-  - trellix
-  - fortigate
-  - segmentation
-  - negotiation
-  - hardening
+- ransomware
+- cisa
+- backup
+- incident-response
+- encryption
+- recovery
+- nist-csf
+- mitre-attack
+- d3fend
+- crowdstrike
+- trellix
+- fortigate
+- segmentation
+- negotiation
+- hardening
 mitre_attack:
-  - T1486  # Data Encrypted for Impact
-  - T1490  # Inhibit System Recovery
-  - T1496  # Resource Hijacking (crypto-mining variant)
-  - T1059  # Command and Scripting Interpreter
-  - T1021  # Remote Services (lateral movement)
-  - T1082  # System Information Discovery
-  - T1083  # File and Directory Discovery
-  - T1114  # Email Collection
-  - T1489  # Service Stop
-  - T1562  # Impair Defenses
-  - T1498  # Network Denial of Service
-  - T1071  # Application Layer Protocol (C2)
-  - T1003  # OS Credential Dumping
-  - T1547  # Boot or Logon Autostart Execution
-  - T1136  # Create Account
+- T1486
+- T1490
+- T1496
+- T1059
+- T1021
+- T1082
+- T1083
+- T1114
+- T1489
+- T1562
+- T1498
+- T1071
+- T1003
+- T1547
+- T1136
 nist_csf:
-  - PR.DS-11 # Data backup and recovery
-  - RS.MA-01 # Incident response operations
-  - RC.RP-01 # Recovery plan execution
-  - PR.IR-01 # Infrastructure management
-  - ID.RA-01 # Asset vulnerabilities identified
-  - DE.CM-01 # Network monitoring
-  - DE.CM-09 # Personnel activity monitoring
-  - PR.AC-04 # Access permissions managed
-  - PR.IP-04 # Backups conducted
-  - RS.AN-03 # Forensic analysis conducted
-  - RC.CO-03 # Recovery communication coordinated
+- PR.DS-11
+- RS.MA-01
+- RC.RP-01
+- PR.IR-01
+- ID.RA-01
+- DE.CM-01
+- DE.CM-09
+- PR.AC-04
+- PR.IP-04
+- RS.AN-03
+- RC.CO-03
 d3fend:
-  - D3-BCR   # Backup and Crisis Recovery
-  - D3-NS   # Network Segmentation
-  - D3-EDR  # Endpoint Detection and Response
-  - D3-PAN  # Platform Anomaly Detection
-  - D3-FS   # File System Analysis
-  - D3-CA   # Credential Assessment
-  - D3-PH   # Process Hollowing Detection
-  - D3-RA   # Restore Access
-  - D3-DI   # Disk Imaging
-  - D3-NTA  # Network Traffic Analysis
-  - D3-PSA  # Process Spawn Analysis
-  - D3-SA   # System Call Analysis
-  - D3-CE   # Configuration Enforcement
-  - D3-DCE  # Dynamic Content Execution
+- D3-BCR
+- D3-NS
+- D3-EDR
+- D3-PAN
+- D3-FS
+- D3-CA
+- D3-PH
+- D3-RA
+- D3-DI
+- D3-NTA
+- D3-PSA
+- D3-SA
+- D3-CE
+- D3-DCE
 version: '2.0'
 author: BRIDA IT Services
 license: Apache-2.0

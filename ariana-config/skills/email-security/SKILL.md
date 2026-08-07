@@ -1,4 +1,8 @@
-# Skill: Email Security — SPF/DKIM/DMARC & Anti-Phishing
+---
+name: email-security
+description: Email Security
+category: cybersecurity
+---# Skill: Email Security — SPF/DKIM/DMARC & Anti-Phishing
 
 ## Descripción
 Guía de implementación de seguridad de correo electrónico incluyendo autenticación (SPF/DKIM/DMARC), configuración anti-phishing, y hardening de Google Workspace para clientes de BRIDA IT Services.

@@ -1,4 +1,8 @@
-# BRIDA IT Services — Perfil de Cliente y Proyecto
+---
+name: brida-it-services
+description: Brida It Services
+category: cybersecurity
+---# BRIDA IT Services — Perfil de Cliente y Proyecto
 
 ## Empresa
 **BRIDA IT Services** — www.bridaitservices.com

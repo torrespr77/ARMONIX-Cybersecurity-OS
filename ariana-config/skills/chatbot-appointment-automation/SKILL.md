@@ -1,6 +1,9 @@
 ---
 name: chatbot-appointment-automation
-description: Diseño e implementación de chatbots automatizados para agenda de citas en clínicas y consultorios, usando n8n, Make.com o similares. Incluye flujos de conversación, integración con calendarios, recordatorios y gestión de cancelaciones.
+description: Diseño e implementación de chatbots automatizados para agenda de citas
+  en clínicas y consultorios, usando n8n, Make.com o similares. Incluye flujos de
+  conversación, integración con calendarios, recordatorios y gestión de cancelaciones.
+category: automation
 ---
 
 # Skill: Chatbot de Citas para Clínicas

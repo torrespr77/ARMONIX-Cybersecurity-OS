@@ -1,4 +1,8 @@
-# Skill: CrowdStrike Falcon EDR
+---
+name: crowdstrike-falcon
+description: Crowdstrike Falcon
+category: cybersecurity
+---# Skill: CrowdStrike Falcon EDR
 
 ## Descripción
 Implementación, configuración y operación de CrowdStrike Falcon (EDR/XDR) para detección, respuesta y threat hunting en clientes de BRIDA IT Services.

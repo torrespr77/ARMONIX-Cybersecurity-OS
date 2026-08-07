@@ -1,99 +1,100 @@
 ---
 name: phishing-defense-brida
-description: >
-  Defensa integral contra phishing, spear-phishing, BEC (Business Email Compromise)
-  y ataques de ingeniería social por correo electrónico para clientes de BRIDA IT Services.
-  Cubre autenticación de email (SPF/DKIM/DMARC), análisis forense de headers,
-  análisis de URLs y attachments, sandboxing, detección de BEC, simulaciones con GoPhish,
-  concientización de usuarios, respuesta a incidentes de phishing y plantillas de reporte.
-  Mapeo completo a MITRE ATT&CK (T1566, T1598), NIST CSF y D3FEND.
-  Activado por: phishing, email security, BEC, spear phishing, spoofing, DMARC, SPF,
-  DKIM, email compromise, phishing response, email forensic, análisis de correo,
-  ingeniería social, email spoofing, phishing simulation, GoPhish.
+description: 'Defensa integral contra phishing, spear-phishing, BEC (Business Email
+  Compromise) y ataques de ingeniería social por correo electrónico para clientes
+  de BRIDA IT Services. Cubre autenticación de email (SPF/DKIM/DMARC), análisis forense
+  de headers, análisis de URLs y attachments, sandboxing, detección de BEC, simulaciones
+  con GoPhish, concientización de usuarios, respuesta a incidentes de phishing y plantillas
+  de reporte. Mapeo completo a MITRE ATT&CK (T1566, T1598), NIST CSF y D3FEND. Activado
+  por: phishing, email security, BEC, spear phishing, spoofing, DMARC, SPF, DKIM,
+  email compromise, phishing response, email forensic, análisis de correo, ingeniería
+  social, email spoofing, phishing simulation, GoPhish.
+
+  '
 domain: cybersecurity
 subdomain: email-security
-category: security
+category: cybersecurity
 tags:
-  - phishing
-  - spear-phishing
-  - email-security
-  - spf-dkim-dmarc
-  - bec
-  - business-email-compromise
-  - spoofing
-  - email-gateway
-  - email-forensics
-  - url-analysis
-  - sandboxing
-  - gophish
-  - phishing-simulation
-  - user-awareness
-  - incident-response
-  - nist-csf
-  - mitre-attack
-  - d3fend
-  - google-workspace
-  - cloudflare
+- phishing
+- spear-phishing
+- email-security
+- spf-dkim-dmarc
+- bec
+- business-email-compromise
+- spoofing
+- email-gateway
+- email-forensics
+- url-analysis
+- sandboxing
+- gophish
+- phishing-simulation
+- user-awareness
+- incident-response
+- nist-csf
+- mitre-attack
+- d3fend
+- google-workspace
+- cloudflare
 mitre_attack:
-  - T1566.001  # Phishing: Spearphishing Attachment
-  - T1566.002  # Phishing: Spearphishing Link
-  - T1566.003  # Phishing: Spearphishing via Service
-  - T1598.001  # Phishing for Information: Spearphishing Attachment
-  - T1598.002  # Phishing for Information: Spearphishing Link
-  - T1598.003  # Phishing for Information: Spearphishing via Service
-  - T1204.002  # User Execution: Malicious File
-  - T1204.001  # User Execution: Malicious Link
-  - T1114.002  # Email Collection: Remote Email Collection
-  - T1114.003  # Email Collection: Email Forwarding Rule
-  - T1056.003  # Input Capture: Web Portal Capture
-  - T1583.001  # Acquire Infrastructure: Domains
-  - T1585.001  # Establish Accounts: Social Media Accounts
+- T1566.001
+- T1566.002
+- T1566.003
+- T1598.001
+- T1598.002
+- T1598.003
+- T1204.002
+- T1204.001
+- T1114.002
+- T1114.003
+- T1056.003
+- T1583.001
+- T1585.001
 nist_csf:
-  - PR.AT-01   # Users are informed and trained
-  - PR.AT-02   # Privileged users understand roles and responsibilities
-  - PR.DS-02   # Data-in-transit is protected
-  - DE.CM-01   # Networks are monitored for potential cybersecurity events
-  - DE.CM-09   # Computing hardware and software are monitored for potential cybersecurity events
-  - DE.AE-02   # Potentially suspicious events are analyzed
-  - DE.AE-06   # Information from event monitoring is correlated and analyzed
-  - RS.MA-01   # Incident response plan is executed
-  - RS.AN-03   # Analysis is performed to establish what has taken place during an incident
-  - RS.AN-06   # Actions performed during the investigation are recorded
-  - RC.RP-01   # The recovery plan is executed
+- PR.AT-01
+- PR.AT-02
+- PR.DS-02
+- DE.CM-01
+- DE.CM-09
+- DE.AE-02
+- DE.AE-06
+- RS.MA-01
+- RS.AN-03
+- RS.AN-06
+- RC.RP-01
 d3fend:
-  - D3-DNSA    # DNS Analysis
-  - D3-ER      # Email Filtering
-  - D3-ET      # Email Content Filtering
-  - D3-EF      # Email Header Analysis
-  - D3-IA      # Identifier Analysis
-  - D3-URA     # URL Analysis
-  - D3-SS      # System Call Analysis
-  - D3-SEA     # Sender MTA Reputation Assessment
-  - D3-SPP     # SMTP Presentation Protocol
-  - D3-PA      # Platform Monitoring
-  - D3-UBA     # User Behavior Analysis
-  - D3-NTA     # Network Traffic Analysis
-  - D3-IS      # Isolation
-version: "2.0.0"
+- D3-DNSA
+- D3-ER
+- D3-ET
+- D3-EF
+- D3-IA
+- D3-URA
+- D3-SS
+- D3-SEA
+- D3-SPP
+- D3-PA
+- D3-UBA
+- D3-NTA
+- D3-IS
+version: 2.0.0
 author: BRIDA IT Services
 methodology: NIST SP 800-83, NIST SP 800-61 Rev. 2, CISA Phishing Guidance
 tools:
-  - Google Workspace Admin Console
-  - Cloudflare DNS
-  - MXToolbox
-  - VirusTotal
-  - Any.Run
-  - URLScan.io
-  - GoPhish
-  - Email Header Analyzer (Google Admin Toolbox)
-  - CrowdStrike Falcon (EDR)
-  - Trellix ePO (Endpoint Protection)
+- Google Workspace Admin Console
+- Cloudflare DNS
+- MXToolbox
+- VirusTotal
+- Any.Run
+- URLScan.io
+- GoPhish
+- Email Header Analyzer (Google Admin Toolbox)
+- CrowdStrike Falcon (EDR)
+- Trellix ePO (Endpoint Protection)
 frameworks:
-  - MITRE ATT&CK v14
-  - NIST Cybersecurity Framework v2.0
-  - MITRE D3FEND
-  - CISA Phishing Guidance
-language: "es (términos de ciberseguridad en inglés)"
+- MITRE ATT&CK v14
+- NIST Cybersecurity Framework v2.0
+- MITRE D3FEND
+- CISA Phishing Guidance
+language: es (términos de ciberseguridad en inglés)
 ---
 
 # Phishing Defense — BRIDA IT Services v2.0

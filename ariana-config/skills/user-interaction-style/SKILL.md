@@ -1,13 +1,21 @@
 ---
 name: user-interaction-style
-description: "Guidelines for interacting with the user Roger (Rogelio Torres Pimentel), including preferred forms of address, tone, and technical communication style."
+description: Guidelines for interacting with the user Roger (Rogelio Torres Pimentel),
+  including preferred forms of address, tone, and technical communication style.
 version: 1.2.0
 author: Ariana (Hermes Agent)
 license: MIT
 metadata:
   hermes:
-    tags: [communication, interaction, user-preference, style]
-    related_skills: [hermes-agent, software-development]
+    tags:
+    - communication
+    - interaction
+    - user-preference
+    - style
+    related_skills:
+    - hermes-agent
+    - software-development
+category: configuration
 ---
 # User Interaction Style — Roger
 

@@ -1,4 +1,8 @@
-# Skill: EDR Deployment — CrowdStrike & Trellix
+---
+name: edr-deployment
+description: Edr Deployment
+category: cybersecurity
+---# Skill: EDR Deployment — CrowdStrike & Trellix
 
 ## Descripción
 Guía de despliegue y configuración de soluciones EDR (Endpoint Detection and Response) de CrowdStrike Falcon y Trellix ePO para clientes de BRIDA IT Services.

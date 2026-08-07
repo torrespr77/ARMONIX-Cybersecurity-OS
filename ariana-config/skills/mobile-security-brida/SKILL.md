@@ -1,6 +1,10 @@
 ---
 name: mobile-security-brida
-description: 'Mobile security assessment and management for BRIDA IT Services clients. Covers mobile app penetration testing (OWASP MASTG), Android/iOS security analysis, MDM/EMM deployment, mobile threat defense, and mobile device forensics. Activates for: mobile security, mobile pentest, Android security, iOS security, MDM, mobile app security, OWASP MASTG.'
+description: 'Mobile security assessment and management for BRIDA IT Services clients.
+  Covers mobile app penetration testing (OWASP MASTG), Android/iOS security analysis,
+  MDM/EMM deployment, mobile threat defense, and mobile device forensics. Activates
+  for: mobile security, mobile pentest, Android security, iOS security, MDM, mobile
+  app security, OWASP MASTG.'
 domain: cybersecurity
 subdomain: mobile-security
 tags:
@@ -24,6 +28,7 @@ mitre_attack:
 - T1409
 - T1521
 - T1633
+category: cybersecurity
 ---
 
 # Mobile Security — BRIDA IT Services

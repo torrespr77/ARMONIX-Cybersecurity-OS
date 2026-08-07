@@ -1,4 +1,8 @@
-# BRIDA Client Database & Proposals
+---
+name: brida-client-database
+description: Brida Client Database
+category: cybersecurity
+---# BRIDA Client Database & Proposals
 
 ## Descripción
 Base de datos de clientes, proyectos activos y plantillas de propuestas comerciales para BRIDA IT Services.

@@ -1,4 +1,8 @@
-# Skill: Compliance Mapping — NIST CSF, ISO 27001, CIS, PCI-DSS
+---
+name: compliance-mapping
+description: Compliance Mapping
+category: cybersecurity
+---# Skill: Compliance Mapping — NIST CSF, ISO 27001, CIS, PCI-DSS
 
 ## Descripción
 Guía de mapeo de frameworks de cumplimiento y seguridad (NIST CSF, ISO 27001, CIS Controls, PCI-DSS) para clientes de BRIDA IT Services, incluyendo gap assessment y roadmap de cumplimiento.

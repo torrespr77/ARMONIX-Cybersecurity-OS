@@ -1,4 +1,8 @@
-# Skill: Fortinet Firewall Configuration & Hardening
+---
+name: fortinet-firewall
+description: Fortinet Firewall
+category: cybersecurity
+---# Skill: Fortinet Firewall Configuration & Hardening
 
 ## Descripción
 Guía de configuración y hardening de firewalls Fortinet (FortiGate, FortiSASE) para clientes de BRIDA IT Services, incluyendo mejores prácticas de seguridad perimetral, VPN, SD-WAN y Zero Trust.

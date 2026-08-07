@@ -1,23 +1,27 @@
 ---
-name: "web-application-security-brida"
-description: "Skill integral de seguridad de aplicaciones web para BRIDA IT Services. Cubre OWASP Top 10 (2021), metodología WSTG, Burp Suite, seguridad de APIs (OWASP API Top 10), y fallos de lógica de negocio. Incluye metodología de pruebas, vulnerabilidades comunes, guías de remediación, y plantillas de reportes. Mapeo con MITRE ATT&CK, NIST CSF, y D3FEND."
+name: web-application-security-brida
+description: Skill integral de seguridad de aplicaciones web para BRIDA IT Services.
+  Cubre OWASP Top 10 (2021), metodología WSTG, Burp Suite, seguridad de APIs (OWASP
+  API Top 10), y fallos de lógica de negocio. Incluye metodología de pruebas, vulnerabilidades
+  comunes, guías de remediación, y plantillas de reportes. Mapeo con MITRE ATT&CK,
+  NIST CSF, y D3FEND.
 triggers:
-  - "web app security"
-  - "OWASP Top 10"
-  - "pentesting web"
-  - "seguridad aplicaciones web"
-  - "Burp Suite"
-  - "API security"
-  - "OWASP API Top 10"
-  - "WSTG"
-  - "business logic flaw"
-  - "fallo de lógica de negocio"
-  - "web application pentest"
-  - "security assessment web"
-  - "BRIDA web security"
-  - "pruebas de seguridad web"
-  - "vulnerabilidades web"
-category: "security"
+- web app security
+- OWASP Top 10
+- pentesting web
+- seguridad aplicaciones web
+- Burp Suite
+- API security
+- OWASP API Top 10
+- WSTG
+- business logic flaw
+- fallo de lógica de negocio
+- web application pentest
+- security assessment web
+- BRIDA web security
+- pruebas de seguridad web
+- vulnerabilidades web
+category: cybersecurity
 ---
 
 # Web Application Security - BRIDA IT Services

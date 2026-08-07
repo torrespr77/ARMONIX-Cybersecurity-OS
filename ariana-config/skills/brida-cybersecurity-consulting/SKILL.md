@@ -1,6 +1,9 @@
 ---
-name: "brida-cybersecurity-consulting"
-description: Consultoría profesional de Cybersecurity para BRIDA IT Services — Threat Modeling, propuestas comerciales, presentaciones CIO, evaluaciones de madurez, y diseño de arquitectura de seguridad para empresas mexicanas medianas.
+name: brida-cybersecurity-consulting
+description: Consultoría profesional de Cybersecurity para BRIDA IT Services — Threat
+  Modeling, propuestas comerciales, presentaciones CIO, evaluaciones de madurez, y
+  diseño de arquitectura de seguridad para empresas mexicanas medianas.
+category: cybersecurity
 ---
 
 # brida-cybersecurity-consulting

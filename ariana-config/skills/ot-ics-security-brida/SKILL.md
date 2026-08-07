@@ -1,31 +1,48 @@
 ---
 name: ot-ics-security-brida
-description: "Seguridad OT/ICS para BRIDA IT Services — SCADA, Modbus, DNP3, IEC 62443, Purdue Model, IT/OT Convergence, MITRE ATT&CK for ICS, NIST CSF, D3FEND."
+description: Seguridad OT/ICS para BRIDA IT Services — SCADA, Modbus, DNP3, IEC 62443,
+  Purdue Model, IT/OT Convergence, MITRE ATT&CK for ICS, NIST CSF, D3FEND.
 version: 1.0.0
 author: BRIDA IT Services
 license: Proprietary
-platforms: [linux, macos, windows]
+platforms:
+- linux
+- macos
+- windows
 triggers:
-  - "seguridad OT"
-  - "seguridad ICS"
-  - "SCADA"
-  - "Modbus"
-  - "DNP3"
-  - "IEC 62443"
-  - "Purdue Model"
-  - "IT/OT convergence"
-  - "MITRE ATT&CK ICS"
-  - "NIST CSF OT"
-  - "D3FEND"
-  - "redes industriales"
-  - "sistemas de control"
-  - "OT security"
-  - "ICS security"
-  - "industrial security"
+- seguridad OT
+- seguridad ICS
+- SCADA
+- Modbus
+- DNP3
+- IEC 62443
+- Purdue Model
+- IT/OT convergence
+- MITRE ATT&CK ICS
+- NIST CSF OT
+- D3FEND
+- redes industriales
+- sistemas de control
+- OT security
+- ICS security
+- industrial security
 category: cybersecurity
 metadata:
   hermes:
-    tags: [ot, ics, scada, modbus, dnp3, iec-62443, purdue, it-ot-convergence, mitre-attack-ics, nist-csf, d3fend, industrial-security, critical-infrastructure]
+    tags:
+    - ot
+    - ics
+    - scada
+    - modbus
+    - dnp3
+    - iec-62443
+    - purdue
+    - it-ot-convergence
+    - mitre-attack-ics
+    - nist-csf
+    - d3fend
+    - industrial-security
+    - critical-infrastructure
     homepage: https://www.bridaitservices.com
 ---
 

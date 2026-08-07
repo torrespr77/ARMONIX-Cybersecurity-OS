@@ -1,4 +1,8 @@
-# Skill: Fortinet NGFW — FortiGate & FortiSASE
+---
+name: fortinet-nfgw
+description: Fortinet Nfgw
+category: cybersecurity
+---# Skill: Fortinet NGFW — FortiGate & FortiSASE
 
 ## Descripción
 Configuración, hardening y operación de firewalls Fortinet FortiGate (on-premises) y FortiSASE (cloud/Zero Trust) para clientes de BRIDA IT Services.

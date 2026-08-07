@@ -1,10 +1,13 @@
 ---
 name: hermes-backup
-description: "Procedures for backing up and restoring Hermes Agent configuration, skills, tools, and environment. Includes scripted backups, cron jobs, and restoration steps."
+description: Procedures for backing up and restoring Hermes Agent configuration, skills,
+  tools, and environment. Includes scripted backups, cron jobs, and restoration steps.
 version: 1.3.0
 author: Hermes Agent
 license: MIT
-platforms: [linux]
+platforms:
+- linux
+category: productivity
 ---
 # Hermes Backup & Restore Procedures
 

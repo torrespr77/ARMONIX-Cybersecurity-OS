@@ -1,4 +1,8 @@
-# Skill: Network Security Architecture — Fortinet
+---
+name: fortinet-network-security
+description: Fortinet Network Security
+category: cybersecurity
+---# Skill: Network Security Architecture — Fortinet
 
 ## Descripción
 Diseño e implementación de arquitectura de seguridad de red con soluciones Fortinet para clientes de BRIDA IT Services.
