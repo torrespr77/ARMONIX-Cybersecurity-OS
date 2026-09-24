@@ -1,10 +1,11 @@
-# 🔐 BRIDA IT Services — Proyecto de Ciberseguridad
+ARMONIX IT Services - AI Cybersecurity Agent
 
 ## Descripción
 
-Proyecto integral de ciberseguridad para BRIDA IT Services, incluyendo:
+Proyecto integral de ciberseguridad Personal, mi consultoria se llamaria ARMONIX:
 - Penetration Testing (Black Box)
 - Vulnerability Assessment
+- CTEM
 - Propuesta Comercial de Servicios
 - Contrato de Servicios de Ciberseguridad
 - Manual de Administración de Hermes Agent (Agente Ariana)
@@ -13,20 +14,20 @@ Proyecto integral de ciberseguridad para BRIDA IT Services, incluyendo:
 ## Estructura del Proyecto
 
 ```
-brida-security-project/
+ARMONIX-security-project/
 ├── README.md                    # Este archivo
 ├── docs/                        # Documentación operat│
 │   ├── Guia_Reboot_Hermes_Agent.docx
 │   ├── Registro_Instrucciones_Ariana_COMPLETO.docx
 │   └── .gitkeep
 ├── reports/                     # Reportes de seguridad
-│   ├── ReportE_Pentest_BlackBox_bridaitservices.com.docx
-│   ├── Presentacion_Ejecutiva_Berni_BRIDA_Seguridad.docx
-│   ├── Reporte_Ejecutivo_CEO_BRIDA_Seguridad.docx
-│   └── Reporte_Seguridad_BRIDA_IT_Services.docx
+│   ├── ReportE_Pentest_BlackBox_ARMONIXitservices.com.docx
+│   ├── Presentacion_Ejecutiva_Berni_ARMONIX_Seguridad.docx
+│   ├── Reporte_Ejecutivo_CEO_ARMONIX_Seguridad.docx
+│   └── Reporte_Seguridad_ARMONIX_IT_Services.docx
 ├── contracts/                   # Contratos y propuestas
-│   ├── Contrato_Servicios_Ciberseguridad_BRIDA.docx
-│   └── Propuesta_Ciberseguridad_BRIDA_IT_Services.docx
+│   ├── Contrato_Servicios_Ciberseguridad_ARMONIX.docx
+│   └── Propuesta_Ciberseguridad_ARMONIX_IT_Services.docx
 ├── skills/                      # Skills de Hermes Agent
 │   └── .gitkeep
 └── scripts/                     # Scripts de seguridad
@@ -49,7 +50,7 @@ brida-security-project/
 
 ## Vulnerabilidades Críticas
 
-1. **Sin DMARC** — Riesgo de spoofing de correo @bridaitservices.com
+1. **Sin DMARC** — Riesgo de spoofing de correo @ARMONIXitservices.com
 2. **Puertos 8080/8443 abiertos** — Posible exposición de servicios
 3. **Sin Content-Security-Policy** — Riesgo XSS
 4. **WordPress versión expuesta** — Facilita ataques dirigidos
@@ -82,4 +83,4 @@ Senior Cybersecurity Consultant / Architect
 
 ---
 
-*Documento generado: Junio 2026 — BRIDA IT Services*
+*Documento generado: Junio 2026 — ARMONIX IT Services*
